@@ -6311,6 +6311,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4748673208366033137, guid: 63f90b01e837ebf428dffa3138caaf4c, type: 3}
+      propertyPath: m_Text
+      value: LastOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748673208366033137, guid: 63f90b01e837ebf428dffa3138caaf4c, type: 3}
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
@@ -6332,7 +6336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4748673208366033137, guid: 63f90b01e837ebf428dffa3138caaf4c, type: 3}
       propertyPath: m_FontData.m_FontStyle
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4748673208366033143, guid: 63f90b01e837ebf428dffa3138caaf4c, type: 3}
       propertyPath: m_Name
