@@ -1,0 +1,133 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Globals
+{
+    public static Vector2 lookDirection;
+    public static float mouseRatio;
+    public static float[] limitArray = new float[2];
+    public static string currentPlayerAnim = "Player_IdleD";
+    public static GameObject player;
+
+}
+
+public class PlayerScript : MonoBehaviour
+{
+    public float moveSpeed = 1f;
+    public float collisionOffset = 0.01f;
+    public ContactFilter2D movementFilter;
+    public Vector2 movementInput;
+    public Rigidbody2D rb;
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
+
+    Collider2D bodyCollider;
+
+    [HideInInspector] public List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
+    [SerializeField] string currentAnimation;
+    public bool isStatic;
+
+    [SerializeField] Camera mainCam;
+    Vector2 mousePos;
+    public Vector3 up = new Vector3(0, 0, 1);
+    [SerializeField] bool isDashAvailable = true;
+    public int numGrenades = 0;
+
+    void Start()
+    {
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        bodyCollider = GetComponent<Collider2D>();
+        Globals.player = GameObject.FindGameObjectWithTag("Player");
+        numGrenades = 0x10;
+    }
+
+    
+
+    private void FixedUpdate()
+    {
+
+        if (isStatic)
+        {
+            return;
+        }
+
+        // Checks to see if an Idle animation should play.
+        animator.SetBool("isWalking", !isPlayerIdle());
+
+        
+
+        //If movementInput != 0 then try to move
+        if (movementInput != Vector2.zero && !GetComponent<DashAbility>().isDashing)
+        {
+            bool success = TryMove(new Vector2(movementInput.x, movementInput.y));
+            /*if (!success)
+            {
+                success = TryMove(new Vector2(movementInput.x, 0));
+
+                if (!success)
+                {
+                    success = TryMove(new Vector2(0, movementInput.y));
+                }
+            }*/
+            animator.SetBool("isWalking", true);
+        }
+
+
+        // Converts mouse position to Vector2 coordinates on the screen
+        mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+
+        // Creates a Vector that points from gun to mouse. Limits arc with limitVector function.
+        Globals.lookDirection = mousePos - new Vector2(transform.position.x, transform.position.y);
+
+    }
+
+    void LateUpdate()
+    {
+        float pointAngle = Mathf.Atan2(Globals.lookDirection.y, Globals.lookDirection.x) * Mathf.Rad2Deg - 90f;
+        transform.rotation = Quaternion.AngleAxis(pointAngle + 180, up);
+
+    }
+
+    private bool TryMove(Vector2 direction)
+    {
+        //Check for collisions
+        int count = rb.Cast(direction, movementFilter, castCollisions, moveSpeed * Time.fixedDeltaTime);
+        //int count = Physics2D.CircleCast(GetComponent<DashAbility>().colliderTransform.position, bodyCollider.bounds.extents.x + 0.01f, direction, movementFilter, castCollisions, moveSpeed * Time.deltaTime);
+        if (count == 0)
+        {
+            rb.MovePosition(rb.position + movementInput * moveSpeed * Time.fixedDeltaTime);
+            return true;
+        }
+        else
+        {
+            // Debug.Log("blocked");
+            return false;
+
+        }
+
+    }
+    void OnMove(InputValue movementValue)
+    {
+        movementInput = movementValue.Get<Vector2>().normalized;
+    }
+
+    private void ReloadDash()
+    {
+        isDashAvailable = true;
+    }
+
+    bool isPlayerIdle()
+    {
+        if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)))
+        {
+            return true;
+        }
+        return false;
+    }
+}
