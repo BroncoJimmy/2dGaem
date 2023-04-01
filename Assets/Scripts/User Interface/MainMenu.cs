@@ -8,6 +8,11 @@ public class MainMenu : MonoBehaviour
     public string firstLevel;
     public GameObject options;
 
+    private void Awake()
+    {
+        options = GameObject.Find("Options Menu");
+    }
+
     //Start Button
     public void StartGame(){
         SceneManager.LoadScene(firstLevel);

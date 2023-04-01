@@ -12,8 +12,12 @@ public class OptionsMenu : MonoBehaviour
     public bool isGameplayScene;
     public GameObject summary;
 
+    //Gets reference to GameSummary at startup and sets this GameObject to DontDestroyOnLoad
     private void Awake()
     {
+        
+        summary = GameObject.Find("Game Summary");
+        
         if (optionsMenu != null)
         {
             Destroy(gameObject);
@@ -22,6 +26,11 @@ public class OptionsMenu : MonoBehaviour
 
         optionsMenu = this;
         DontDestroyOnLoad(gameObject);
+        Invoke("Deactivate", .01f);
+    }
+
+    public void Deactivate()
+    {
         canvas.SetActive(false);
     }
 
@@ -41,7 +50,7 @@ public class OptionsMenu : MonoBehaviour
 
     public void CloseOptions()
     {
-        canvas.SetActive(false);
+        Deactivate();
     }
 
     public void LeaveGame()
@@ -54,7 +63,7 @@ public class OptionsMenu : MonoBehaviour
     {
         if (Input.GetKeyDown("escape"))
         {
-            canvas.SetActive(false);
+            Deactivate();
         }
     }
 }

@@ -18,6 +18,11 @@ public class GameSummary : MonoBehaviour
 
         instance = this;
         DontDestroyOnLoad(gameObject);
+        Invoke("Deactivate", .01f);
+    }
+    
+    public void Deactivate()
+    {
         summary.SetActive(false);
     }
 
