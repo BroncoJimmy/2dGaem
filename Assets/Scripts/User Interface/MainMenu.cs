@@ -7,10 +7,12 @@ public class MainMenu : MonoBehaviour
 {
     public string firstLevel;
     public GameObject options;
+    public OptionsMenu optionsMenu;
 
     private void Awake()
     {
         options = GameObject.Find("Options Menu");
+        optionsMenu = options.GetComponent<OptionsMenu>();
     }
 
     //Start Button
@@ -19,7 +21,7 @@ public class MainMenu : MonoBehaviour
     }
 
     public void OpenOptions(){
-        options.SetActive(true);
+        optionsMenu.Activate();
     }
 
     //Quit button
@@ -28,11 +30,4 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Quitting");
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown("escape"))
-        {
-            options.SetActive(true);
-        }
-    }
 }

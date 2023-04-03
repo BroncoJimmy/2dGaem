@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d353e6cdd2c82304dbef35f7365727a4
+guid: 211528a069ce0f44b818ec33438ff3da
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,11 +9,8 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Lexend
-  fallbackFontReferences:
-  - {fileID: 12800000, guid: e2521e504157ccd4c865a51283956489, type: 3}
-  - {fileID: 12800000, guid: 124d00ef6056c994694da6fb8986e543, type: 3}
-  - {fileID: 12800000, guid: 01d65d438e4b5904cadae91a0aa3e416, type: 3}
+  - Pixel
+  fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

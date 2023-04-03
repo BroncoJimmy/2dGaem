@@ -7,17 +7,15 @@ public class OptionsMenu : MonoBehaviour
 {
 
     public AudioMixer mainMixer;
-    public GameObject canvas;
+    public GameObject instance;
+    public static Canvas canvas;
     public static OptionsMenu optionsMenu;
     public bool isGameplayScene;
-    public GameObject summary;
+    public GameSummary summary;
 
-    //Gets reference to GameSummary at startup and sets this GameObject to DontDestroyOnLoad
+    //Gets reference to GameSummary at startup, sets this GameObject to DontDestroyOnLoad.
     private void Awake()
     {
-        
-        summary = GameObject.Find("Game Summary");
-        
         if (optionsMenu != null)
         {
             Destroy(gameObject);
@@ -28,12 +26,35 @@ public class OptionsMenu : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         Invoke("Deactivate", .01f);
     }
-
-    public void Deactivate()
+    
+    //Press Escape to close the menu.
+    void Update()
     {
-        canvas.SetActive(false);
+        if (Input.GetKeyDown("escape"))
+        {
+            Debug.Log("Hello");
+            if (canvas.enabled == true)
+            {
+                Deactivate();
+            }
+            
+        }
     }
 
+    //The two methods below disable/enable the Canvas component of this GameObject which stops the menu from rendering.
+    public void Deactivate()
+    {
+        canvas = GetComponent<Canvas>();
+        canvas.enabled = false;
+    }
+
+    public void Activate()
+    {
+        canvas = GetComponent<Canvas>();
+        canvas.enabled = true;
+    }
+
+    //Remaining methods are for the buttons
     public void SetVolume(float volume)
     {
         mainMixer.SetFloat("volume", volume);
@@ -55,15 +76,8 @@ public class OptionsMenu : MonoBehaviour
 
     public void LeaveGame()
     {
-        summary.SetActive(true);
+        summary.Activate();
         CloseOptions();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown("escape"))
-        {
-            Deactivate();
-        }
-    }
 }

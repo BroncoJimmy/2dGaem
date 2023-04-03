@@ -6,6 +6,7 @@ public class OptionsKeybind : MonoBehaviour
 {
     public GameObject options;
     public static OptionsKeybind optionsKeybind;
+    public OptionsMenu optionsMenu;
 
     private void Awake()
     {
@@ -17,13 +18,18 @@ public class OptionsKeybind : MonoBehaviour
 
         optionsKeybind = this;
         DontDestroyOnLoad(gameObject);
+        optionsMenu = options.GetComponent<OptionsMenu>();
     }
 
+    //Press Escape to open the options.
     void Update()
     {
         if (Input.GetKeyDown("escape"))
         {
-            options.SetActive(true);
+            if (optionsMenu.GetComponent<Canvas>().enabled == false)
+            {
+                optionsMenu.Activate();
+            }
         }
     }
 }
