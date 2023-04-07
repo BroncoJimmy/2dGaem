@@ -26,6 +26,18 @@ public class EnemyGeneration : MonoBehaviour
     {
         removeEnemies(Globals.player.transform.position);
         removeItems(Globals.player.transform.position);
+        
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            foreach (GameObject en in loadedEnemies)
+            {
+                Debug.Log(", " + en.transform.position);
+            }
+        }
     }
 
     public static void generateEnemy(GameObject enemy, Vector3 newLocation)
@@ -56,6 +68,7 @@ public class EnemyGeneration : MonoBehaviour
                     //Debug.Log("Unloaded enemy at " + loadedEnemies[instance].transform.position + ", Load point: " + loadPoint);
                     //removeKeys.Add(instance.Key);
                     unloadedEnemies.Add(loadedEnemies[instance].transform.position, loadedEnemies[instance]);
+                    loadedEnemies[instance].GetComponent<SpriteRenderer>().color = Color.red;
                     Destroy(loadedEnemies[instance]);
                     //Debug.Log(instance + ", " + loadedEnemies[instance].transform.position);
                     loadedEnemies.RemoveAt(instance);

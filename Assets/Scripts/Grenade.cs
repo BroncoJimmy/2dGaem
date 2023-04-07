@@ -44,7 +44,7 @@ public class Grenade : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy" && isLive)
         {
-            collision.gameObject.SendMessage("zTakeDamage", 100);
+            collision.gameObject.SendMessage("damageTaken", 100);
         }
 
         if (collision.gameObject.tag == "Player" && !isLive)
