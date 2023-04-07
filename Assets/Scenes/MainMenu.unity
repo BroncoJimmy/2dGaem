@@ -1815,7 +1815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c0d44a36e850f4ea2379fd1107dc9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstLevel: DungeonArea
+  firstLevel: DungeonArea2
   options: {fileID: 938605558}
   optionsMenu: {fileID: 938605564}
 --- !u!82 &1925923806
