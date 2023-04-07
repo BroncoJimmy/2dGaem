@@ -23906,6 +23906,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4251717742432230154, guid: 982d142720e3f314595f946a4040344f, type: 3}
+      propertyPath: dashSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251717742432230154, guid: 982d142720e3f314595f946a4040344f, type: 3}
+      propertyPath: dashReloadTime
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 982d142720e3f314595f946a4040344f, type: 3}
 --- !u!1001 &4926817510543814908

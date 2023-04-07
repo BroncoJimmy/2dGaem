@@ -5322,7 +5322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4251717742432230154, guid: 982d142720e3f314595f946a4040344f, type: 3}
       propertyPath: dashSpeed
-      value: 20
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4251717742432230154, guid: 982d142720e3f314595f946a4040344f, type: 3}
       propertyPath: dashReloadTime

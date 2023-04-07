@@ -120,7 +120,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  moveSpeed: 0.5
+  moveSpeed: 0.4
   collisionOffset: 0.01
   trackDistance: 2
   pointAngle: 0
@@ -201,8 +201,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5f1788e90842149a92addbffee9316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zHealth: 100
+  renderer: {fileID: 0}
+  zHealth: 50
   flashMaterial: {fileID: 2100000, guid: b2b1f5c508ee9614794c3434c5f8eaea, type: 2}
+  isFlashing: 0
 --- !u!70 &3771816114807389946
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

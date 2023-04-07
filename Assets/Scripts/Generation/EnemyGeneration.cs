@@ -67,8 +67,7 @@ public class EnemyGeneration : MonoBehaviour
                 {
                     //Debug.Log("Unloaded enemy at " + loadedEnemies[instance].transform.position + ", Load point: " + loadPoint);
                     //removeKeys.Add(instance.Key);
-                    unloadedEnemies.Add(loadedEnemies[instance].transform.position, loadedEnemies[instance]);
-                    loadedEnemies[instance].GetComponent<SpriteRenderer>().color = Color.red;
+                    Debug.Log("Deleted " + loadedEnemies[instance] + " at " + loadedEnemies[instance].transform.position);
                     Destroy(loadedEnemies[instance]);
                     //Debug.Log(instance + ", " + loadedEnemies[instance].transform.position);
                     loadedEnemies.RemoveAt(instance);

@@ -7,9 +7,10 @@ public class DashAbility : MonoBehaviour
 
     public bool isDashing = false;
     [SerializeField] bool isDashAvailable = true;
-    [SerializeField] int dashReloadTime = 3;
+    [SerializeField] float dashReloadTime = 3;
     [SerializeField] float dashSpeed =  1f;
     [SerializeField] float dashingTime = 0.1f;
+    [SerializeField] ContactFilter2D dashFilter;
     Vector2 dashVector;
     int dashCount;
 
@@ -46,16 +47,22 @@ public class DashAbility : MonoBehaviour
             Invoke("ReloadDash", dashReloadTime);*/
             
         }
-        if (isDashing)
-        {
-             /*new Vector2(Globals.lookDirection.x * (dashSpeed / Globals.lookDirection.magnitude), Globals.lookDirection.y * (dashSpeed / Globals.lookDirection.magnitude ))*/;
-            dashCount++;
-            TryDash(dashVector);
-        }
+       
 
         //player_script.animator.SetBool("isDashing", isDashing);
         animator.SetBool("isDashing", isDashing);
 
+    }
+
+    private void FixedUpdate()
+    {
+        if (isDashing)
+        {
+            /*new Vector2(Globals.lookDirection.x * (dashSpeed / Globals.lookDirection.magnitude), Globals.lookDirection.y * (dashSpeed / Globals.lookDirection.magnitude ))*/
+            ;
+            dashCount++;
+            TryDash(dashVector);
+        }
     }
 
     // No idea what the fuck an IEnumerator is but the tutorial told me to do it.
@@ -70,7 +77,7 @@ public class DashAbility : MonoBehaviour
         yield return new WaitForSeconds(dashingTime);
         isDashing = false;
         tr.emitting = false;
-        //Debug.Log("DISTANCE: " + (startPosition - Globals.player.transform.position).magnitude + "; DASH COUNT: " + dashCount);
+        Debug.Log("DISTANCE: " + (startPosition - Globals.player.transform.position).magnitude + "; DASH COUNT: " + dashCount);
 
         yield return new WaitForSeconds(dashReloadTime);
         isDashAvailable = true;
@@ -80,7 +87,7 @@ public class DashAbility : MonoBehaviour
     {
         //Debug.Log(direction.magnitude);
         //Check for collisions
-        int count = player_script.rb.Cast(direction, player_script.movementFilter, player_script.castCollisions, dashSpeed * Time.deltaTime + 0.02f);
+        int count = player_script.rb.Cast(direction, dashFilter, player_script.castCollisions, dashSpeed * Time.deltaTime + 0.02f);
         //int count = Physics2D.CircleCast(colliderTransform.position, bodyCollider.bounds.extents.x + 0.01f, direction, player_script.movementFilter, player_script.castCollisions, dashSpeed * Time.deltaTime);
 
 

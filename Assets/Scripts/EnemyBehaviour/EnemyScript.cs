@@ -195,7 +195,7 @@ public class EnemyScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && !Globals.player.GetComponent<DashAbility>().isDashing)
         {
             collision.gameObject.SendMessage("damageTaken", 20);
         }

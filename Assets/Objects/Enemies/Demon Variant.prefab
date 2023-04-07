@@ -120,7 +120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2571436469785188935, guid: a979cf16b1a05d14c9966413ce802cbb, type: 3}
       propertyPath: zHealth
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1954345619126450813, guid: a979cf16b1a05d14c9966413ce802cbb, type: 3}

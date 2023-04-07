@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1954345619126450802, guid: a979cf16b1a05d14c9966413ce802cbb, type: 3}
       propertyPath: m_Name
-      value: Skeleton
+      value: Skeleton Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1954345619126450808, guid: a979cf16b1a05d14c9966413ce802cbb, type: 3}
       propertyPath: m_Controller
@@ -78,6 +78,10 @@ PrefabInstance:
     - target: {fileID: 1954345619126450815, guid: a979cf16b1a05d14c9966413ce802cbb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2571436469785188935, guid: a979cf16b1a05d14c9966413ce802cbb, type: 3}
+      propertyPath: zHealth
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 3771816114807389946, guid: a979cf16b1a05d14c9966413ce802cbb, type: 3}
       propertyPath: m_Size.y

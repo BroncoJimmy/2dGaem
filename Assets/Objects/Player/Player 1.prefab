@@ -226,6 +226,7 @@ MonoBehaviour:
   animator: {fileID: 4058491945061705291}
   spriteRenderer: {fileID: 4058491945061705301}
   currentAnimation: 
+  isStatic: 0
   mainCam: {fileID: 0}
   up: {x: 0, y: 0, z: 1}
   isDashAvailable: 1
@@ -278,7 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: b2b1f5c508ee9614794c3434c5f8eaea, type: 2}
-  playerHealth: 100
+  playerHealth: 200
   deadPlayerPrefab: {fileID: 8746447771207879697, guid: 6fcd893e71b173c4fa71a44e29ac76ba, type: 3}
 --- !u!114 &4251717742432230154
 MonoBehaviour:
@@ -295,8 +296,22 @@ MonoBehaviour:
   isDashing: 0
   isDashAvailable: 1
   dashReloadTime: 1
-  dashSpeed: 20
+  dashSpeed: 5
   dashingTime: 0.2
+  dashFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 1
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
   animator: {fileID: 4058491945061705291}
   tr: {fileID: 5782300609736528374}
   bodyCollider: {fileID: 4058491945061705285}

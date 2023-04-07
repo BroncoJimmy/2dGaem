@@ -12,14 +12,13 @@ public class Bullet : MonoBehaviour
     Quaternion newAngle;
     public int damageAmount { get; set; }
 
-
     private void Start()
     {
         startPos = transform.position;
         newAngle.eulerAngles = new Vector3(0, 0, transform.rotation.eulerAngles.z + 180f);
 
         Invoke("Delete", fireRange);
-        
+
     }
     private void Update()
     {
@@ -34,40 +33,39 @@ public class Bullet : MonoBehaviour
             GameObject effect = Instantiate(hitEffect, transform.position, newAngle);
             Destroy(effect, 0.25f);
             collision.gameObject.SendMessage("wasHit", gameObject);
-                //GetComponent<EnemyScript>().wasHit(gameObject);
-            
+            //GetComponent<EnemyScript>().wasHit(gameObject);
+
             newAngle.eulerAngles = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z + Random.Range(160, 200));
             Instantiate(splatter, transform.position, newAngle);
-            
-            
-        } 
-        else
+            Debug.Log("Layer hit: " + collision.gameObject.layer);
+            Destroy(gameObject);
+
+
+        }
+        else if (!collision.gameObject.layer.Equals(Globals.ITEM_LAYER))
         {
             GameObject effect = Instantiate(hitEffect, transform.position + new Vector3(Globals.lookDirection.x * 0.1f, Globals.lookDirection.y * 0.1f, -5f), newAngle);
             Destroy(effect, 0.25f);
+            Debug.Log("Layer hit: " + collision.gameObject.layer);
+            Destroy(gameObject);
         }
 
-        //Debug.Log(collision.gameObject.name);
-        Destroy(gameObject);
 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.layer.Equals(6))
+
+        if (collision.gameObject.layer.Equals(Globals.PLAYER_LAYER) && !Globals.player.GetComponent<DashAbility>().isDashing)
         {
-            if (collision.gameObject.tag.Equals("Player"))
-            {
-                collision.gameObject.SendMessage("damageTaken", damageAmount);
-                
-            } 
+            collision.gameObject.SendMessage("damageTaken", damageAmount);
+
             GameObject effect = Instantiate(hitEffect, transform.position + transform.up * 0.1f, Quaternion.Euler(0, 0, Random.Range(0, 180)));
             Destroy(effect, effect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
-
             Destroy(gameObject);
         }
 
-        
+
     }
 
     void Delete()
