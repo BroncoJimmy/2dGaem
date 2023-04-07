@@ -10,12 +10,15 @@ public class EnemyGeneration : MonoBehaviour
     public static IDictionary<Vector3, GameObject> unloadedItems = new Dictionary<Vector3, GameObject>();
     public static List<GameObject> loadedItems = new List<GameObject>();
 
+    public static IDictionary<Vector3, GameObject> unloadedObstacles = new Dictionary<Vector3, GameObject>();
+    public static List<GameObject> loadedObstacles = new List<GameObject>();
+
     [SerializeField] float renderDistance = 5;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -35,24 +38,35 @@ public class EnemyGeneration : MonoBehaviour
         loadedItems.Add(Instantiate(item, newLocation, Quaternion.Euler(0, 0, 0)));
     }
 
+    public static void generateObstacle(GameObject obstacle, Vector3 newLocation)
+    {
+        loadedObstacles.Add(Instantiate(obstacle, newLocation, Quaternion.Euler(0, 0, 0)));
+    }
+
     private void removeEnemies(Vector3 loadPoint)
     {
-        //List<Vector3> removeKeys = new List<Vector3>();
-        for (int instance = 0; instance < loadedEnemies.Count;  instance++)
+        //Iterates through the enemies currently loaded to check to see which ones should be unloaded
+        for (int instance = 0; instance < loadedEnemies.Count; instance++)
         {
-            if (loadedEnemies[instance] != null) { 
-            if ((loadedEnemies[instance].transform.position - loadPoint).magnitude > renderDistance)
+            // Checks to see if the loaded enemy still exists, if not then it removes it from the list and moves on
+            if (loadedEnemies[instance] != null)
             {
-                //Debug.Log("Unloaded enemy at " + loadedEnemies[instance].transform.position + ", Load point: " + loadPoint);
-                //removeKeys.Add(instance.Key);
-                unloadedEnemies.Add(loadedEnemies[instance].transform.position, loadedEnemies[instance]);
-                Destroy(loadedEnemies[instance]);
+                if ((loadedEnemies[instance].transform.position - loadPoint).magnitude > renderDistance)
+                {
+                    //Debug.Log("Unloaded enemy at " + loadedEnemies[instance].transform.position + ", Load point: " + loadPoint);
+                    //removeKeys.Add(instance.Key);
+                    unloadedEnemies.Add(loadedEnemies[instance].transform.position, loadedEnemies[instance]);
+                    Destroy(loadedEnemies[instance]);
                     //Debug.Log(instance + ", " + loadedEnemies[instance].transform.position);
-                loadedEnemies.RemoveAt(instance);
+                    loadedEnemies.RemoveAt(instance);
                     //Debug.Log(instance + ", " + loadedEnemies[instance].transform.position);
-                instance--;
+                    instance--;
 
-            } 
+                }
+            }
+            else
+            {
+                loadedEnemies.RemoveAt(instance);
             }
         }
         /*foreach (Vector3 key in removeKeys)

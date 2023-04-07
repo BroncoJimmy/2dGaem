@@ -22,10 +22,10 @@ public class ZombieHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void zTakeDamage(int Damage)
+    public void damageTaken(int Damage)
     {
         if (renderer.material != flashMaterial)
         {

@@ -11,7 +11,10 @@ public class Globals
     public static float[] limitArray = new float[2];
     public static string currentPlayerAnim = "Player_IdleD";
     public static GameObject player;
-
+    public static int PLAYER_LAYER { get { return 3; } }
+    public static int ENEMY_LAYER { get { return 6; } }
+    public static int FLYING_LAYER { get { return 9; } }
+    public static int ITEM_LAYER { get { return 8; } }
 }
 
 public class PlayerScript : MonoBehaviour

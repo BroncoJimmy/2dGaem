@@ -11,7 +11,7 @@ public class Room
     public TileBase[] walls;
     public bool[] roomType;
     public int[] location;
-    
+
     //
     public Room(bool[] parameters, TileBase[] f, TileBase[] w, int[] loc)
     {
@@ -35,14 +35,15 @@ public class TilemapGeneration : MonoBehaviour
     [SerializeField] TileBase[] floorTiles;
     [SerializeField] GameObject[] enemies;
     [SerializeField] GameObject[] items;
+    [SerializeField] GameObject[] obstacles;
     int roomSizeX = 17;
     int roomSizeY = 12;
-    List<int[]>checkCoords;
+    List<int[]> checkCoords;
 
 
 
     // Stores the relevant data for each preset room ({North exit, East, South, West}, {tilemapLocation.x, tilemapLocation.y})
-    public static IDictionary<bool[], int[]> presetData = new Dictionary<bool[], int[]>(); 
+    public static IDictionary<bool[], int[]> presetData = new Dictionary<bool[], int[]>();
     BoundsInt bounds;
 
 
@@ -65,12 +66,12 @@ public class TilemapGeneration : MonoBehaviour
     void Start()
     {
         player = Globals.player;
-        
+
         updatePresets();
 
         bounds = wallPreset.cellBounds;
 
-        buildRoom(new int[]{ 0, 0 });
+        buildRoom(new int[] { 0, 0 });
         //generateEnemies(roomData[new int[] { 0, 0 }].floor, new Vector3Int(roomData[new int[] { 0, 0 }].location[0], roomData[new int[] { 0, 0 }].location[1]));
 
         // Instantiate(enemies[0], player.transform.position, Quaternion.Euler(0, 0, 0));
@@ -90,10 +91,10 @@ public class TilemapGeneration : MonoBehaviour
                 //Debug.Log("Room loaded: " + loc[0] + ", " + loc[1]);
             }
         }
-        
-        
+
+
     }
-    
+
     public List<int[]> checkRooms(Vector3 playerLoc)
     {
         checkCoords = new List<int[]>();
@@ -106,7 +107,7 @@ public class TilemapGeneration : MonoBehaviour
 
         for (int i = 0; i < checkBounds.GetLength(0); i++)
         {
-            checkCoords.Add(new int[] { (int)((playerLoc.x-1.36f)/(roomSizeX*.16f)) + checkBounds[i,0], (int) ((playerLoc.y-0.96f)/ (roomSizeY * .16f)) + checkBounds[i, 1] });
+            checkCoords.Add(new int[] { (int)((playerLoc.x - 1.36f) / (roomSizeX * .16f)) + checkBounds[i, 0], (int)((playerLoc.y - 0.96f) / (roomSizeY * .16f)) + checkBounds[i, 1] });
         }
 
 
@@ -125,7 +126,7 @@ public class TilemapGeneration : MonoBehaviour
 
         return checkCoords;
     }
-    
+
     // Takes in a location in units of room size e.g.{1,4} and builds a random room at that location based off of parameters.
     public Room buildRoom(int[] location)
     {
@@ -136,21 +137,23 @@ public class TilemapGeneration : MonoBehaviour
         List<int> emptyIndexes = new List<int>();
         int falseCount = 0;
         // Check North
-        if (roomData.TryGetValue(new int[] { location[0], location[1] + 1 }, out currentRoom)  )  
+        if (roomData.TryGetValue(new int[] { location[0], location[1] + 1 }, out currentRoom))
         {
             //Debug.Log("Room to the North");
             if (currentRoom.roomType[2])
             {
                 newBlueprint[0] = true;
-            } else
+            }
+            else
             {
                 newBlueprint[0] = false;
                 falseCount++;
             }
-                
-        } else { emptyIndexes.Add(0); }
+
+        }
+        else { emptyIndexes.Add(0); }
         // Check East
-        if (roomData.TryGetValue(new int[] { location[0] +1, location[1] }, out currentRoom))
+        if (roomData.TryGetValue(new int[] { location[0] + 1, location[1] }, out currentRoom))
         {
             //Debug.Log("Room to the East");
             if (currentRoom.roomType[3])
@@ -163,7 +166,8 @@ public class TilemapGeneration : MonoBehaviour
                 falseCount++;
             }
 
-        } else { emptyIndexes.Add(1); }
+        }
+        else { emptyIndexes.Add(1); }
         // Check South
         if (roomData.TryGetValue(new int[] { location[0], location[1] - 1 }, out currentRoom))
         {
@@ -178,7 +182,8 @@ public class TilemapGeneration : MonoBehaviour
                 falseCount++;
             }
 
-        } else { emptyIndexes.Add(2); }
+        }
+        else { emptyIndexes.Add(2); }
         // Check West
         if (roomData.TryGetValue(new int[] { location[0] - 1, location[1] }, out currentRoom))
         {
@@ -193,13 +198,14 @@ public class TilemapGeneration : MonoBehaviour
                 falseCount++;
             }
 
-        } else { emptyIndexes.Add(3); }
-        
-        while(falseCount < 2)
+        }
+        else { emptyIndexes.Add(3); }
+
+        while (falseCount < 2)
         {
             int randInt = (int)(Random.Range(0, 2));
             newBlueprint[emptyIndexes[(int)(Random.Range(0, emptyIndexes.Count) - 0.000001f)]] = (randInt == 1);
-            if (randInt!=1)
+            if (randInt != 1)
             {
                 falseCount++;
             }
@@ -231,6 +237,7 @@ public class TilemapGeneration : MonoBehaviour
 
         currentRoom = new Room(newBlueprint, buildFloor(presetCoords, new Vector3Int(location[0], location[1])), buildWalls(presetCoords, new Vector3Int(location[0], location[1])), location);
         roomData.Add(location, currentRoom);
+        generateObstacles(currentRoom.floor, new Vector3Int(location[0], location[1]));
         generateEnemies(currentRoom.floor, new Vector3Int(location[0], location[1]));
         generateItems(currentRoom.floor, new Vector3Int(location[0], location[1]));
         //Debug.Log("Generated Enemies at " + location[0] + ", " + location[1]);
@@ -247,7 +254,7 @@ public class TilemapGeneration : MonoBehaviour
         {
             for (int column = 0; column < 17; column++)
             {
-                wallMap.SetTile(new Vector3Int(column + (location.x*roomSizeX), row + (location.y*roomSizeY), 0), preset[(roomSizeX * row) + column]);
+                wallMap.SetTile(new Vector3Int(column + (location.x * roomSizeX), row + (location.y * roomSizeY), 0), preset[(roomSizeX * row) + column]);
             }
         }
         return preset;
@@ -266,8 +273,8 @@ public class TilemapGeneration : MonoBehaviour
                     preset[(roomSizeX * row) + column] = randFloorTile();
                     floorMap.SetTile(new Vector3Int(column + (location.x * roomSizeX), row + (location.y * roomSizeY), 0), preset[(roomSizeX * row) + column]);
                 }
-                
-                
+
+
             }
         }
         return preset;
@@ -275,8 +282,8 @@ public class TilemapGeneration : MonoBehaviour
 
     private TileBase randFloorTile()
     {
-        int[] weights = new int[] {70, 10, 10, 10 };
-        int randNum = Random.Range( 0, 100);
+        int[] weights = new int[] { 70, 10, 10, 10 };
+        int randNum = Random.Range(0, 100);
         int newPercent = 0;
         for (int i = 0; i < weights.Length; i++)
         {
@@ -298,11 +305,11 @@ public class TilemapGeneration : MonoBehaviour
         {
             enemySet.Add(enemies[Random.Range(0, enemies.Length)]);
         }
-        for (int row = 2; row < roomSizeY-2; row++)
+        for (int row = 2; row < roomSizeY - 2; row++)
         {
-            for (int column = 3; column < roomSizeX-3; column++)
+            for (int column = 3; column < roomSizeX - 3; column++)
             {
-                if (preset[(roomSizeX * row) + column] != null && Random.Range(0,10) == 5)
+                if (preset[(roomSizeX * row) + column] != null && Random.Range(0, 10) == 5)
                 {
                     Vector3 newLocation = new Vector3((location.x * roomSizeX + column) * .16f - 0.08f, (location.y * roomSizeY + row) * .16f - 0.08f);
                     //Debug.Log("New Enemy at " + newLocation + ", Coords (" + column + ", " + row);
@@ -319,18 +326,18 @@ public class TilemapGeneration : MonoBehaviour
                 break;
             }
         }
-        
+
     }
 
     private void generateItems(TileBase[] preset, Vector3Int location)
     {
         // Creates a list of enemies to be placed in the room (max 2)
-        List<GameObject> itemSet = new List<GameObject>(Random.Range(0,2));
+        List<GameObject> itemSet = new List<GameObject>(Random.Range(0, 2));
         for (int index = 0; index < itemSet.Capacity; index++)
         {
             itemSet.Add(items[Random.Range(0, items.Length)]);
         }
-        for (int row = Random.Range(2,roomSizeY-4); row < roomSizeY - 2; row++)
+        for (int row = Random.Range(2, roomSizeY - 4); row < roomSizeY - 2; row++)
         {
             if (itemSet.Count == 0)
             {
@@ -350,9 +357,60 @@ public class TilemapGeneration : MonoBehaviour
                     break;
                 }
             }
-            
+
         }
 
+    }
+
+    private void generateObstacles(TileBase[] preset, Vector3Int location)
+    {
+        // Creates a list of enemies to be placed in the room (max 2)
+        List<GameObject> obstacleSet = new List<GameObject>(Random.Range(0, 10));
+        for (int index = 0; index < obstacleSet.Capacity; index++)
+        {
+            obstacleSet.Add(obstacles[Random.Range(0, obstacles.Length)]);
+        }
+        for (int item = 0; item < obstacleSet.Count; item++)
+        {
+            int randomRow = Random.Range(2, roomSizeY - 4);
+            int randomColumn = Random.Range(3, roomSizeY - 5);
+            // Checks to see if it can be placed on this random tile
+            if (preset[(roomSizeX * randomRow) + randomColumn] != null)
+            {
+                Vector3 newLocation = new Vector3((location.x * roomSizeX + randomColumn) * .16f - 0.08f, (location.y * roomSizeY + randomRow) * .16f - 0.08f);
+                EnemyGeneration.generateObstacle(obstacleSet[0], newLocation);
+                obstacleSet.RemoveAt(0);
+            }
+            else
+            {
+                // Reload the same item
+                item--;
+            }
+        }
+        /*
+        for (int row = Random.Range(2, roomSizeY - 4); row < roomSizeY - 2; row++)
+        {
+            if (itemSet.Count == 0)
+            {
+                break;
+            }
+            for (int column = Random.Range(3, roomSizeY - 5); column < roomSizeX - 3; column++)
+            {
+                if (preset[(roomSizeX * row) + column] != null && Random.Range(0, 10) == 5)
+                {
+                    Vector3 newLocation = new Vector3((location.x * roomSizeX + column) * .16f - 0.08f, (location.y * roomSizeY + row) * .16f - 0.08f);
+                    //Debug.Log("New Item at " + newLocation + ", Coords (" + column + ", " + row);
+                    EnemyGeneration.generateItem(itemSet[0], newLocation);
+                    itemSet.RemoveAt(0);
+                }
+                if (itemSet.Count == 0)
+                {
+                    break;
+                }
+            }
+
+        }
+        */
     }
 
     public void reloadRoom(Room room)
@@ -379,10 +437,10 @@ public class TilemapGeneration : MonoBehaviour
 
     public void unloadRooms(Vector3 playerLoc)
     {
-        
+
         foreach (var kvp in roomData)
         {
-            if (( new Vector3((int)((playerLoc.x - 1.36f) / (roomSizeX * .16f)), (int)((playerLoc.y - 0.96f) / (roomSizeY * .16f))) - new Vector3(kvp.Value.location[0], kvp.Value.location[1])).magnitude > 2 && kvp.Value.isLoaded)
+            if ((new Vector3((int)((playerLoc.x - 1.36f) / (roomSizeX * .16f)), (int)((playerLoc.y - 0.96f) / (roomSizeY * .16f))) - new Vector3(kvp.Value.location[0], kvp.Value.location[1])).magnitude > 2 && kvp.Value.isLoaded)
             {
                 //Debug.Log("Room deleted");
                 for (int row = 0; row < 12; row++)
@@ -401,7 +459,7 @@ public class TilemapGeneration : MonoBehaviour
     // Initializes the presetData Dictionary with values ({North exit?, East?, South?, West?}, {tilemapLocation.x, tilemapLocation.y})
     public void updatePresets()
     {
-        presetData.Add(new bool[] { true, true, false, false }, new int[] { 0, 0 } );
+        presetData.Add(new bool[] { true, true, false, false }, new int[] { 0, 0 });
         presetData.Add(new bool[] { false, false, true, true }, new int[] { 0, 1 });
         presetData.Add(new bool[] { true, true, true, true }, new int[] { 1, 0 });
         presetData.Add(new bool[] { true, true, true, false }, new int[] { 1, 1 });
@@ -415,7 +473,7 @@ public class TilemapGeneration : MonoBehaviour
     }
 
 
-    
+
 }
 
 public class IntArrEqualityComparer : EqualityComparer<int[]>

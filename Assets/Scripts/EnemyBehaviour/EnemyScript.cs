@@ -189,7 +189,7 @@ public class EnemyScript : MonoBehaviour
     public void wasHit(GameObject weapon)
     {
         animator.SetTrigger("isHit");
-        GetComponent<ZombieHealth>().zTakeDamage(weapon.GetComponent<Bullet>().damageAmount);
+        GetComponent<ZombieHealth>().damageTaken(weapon.GetComponent<Bullet>().damageAmount);
         isStatic = true;
     }
 

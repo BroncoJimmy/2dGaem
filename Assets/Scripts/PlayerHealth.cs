@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
     public void damageTaken(int Damage)
     {
         GetComponent<SpriteRenderer>().material = flashMaterial;
+        GameObject.FindGameObjectWithTag("Gun").GetComponent<SpriteRenderer>().material = flashMaterial;
         Invoke("endFlash", 0.5f);
         playerHealth -= Damage;
 
@@ -28,7 +29,7 @@ public class PlayerHealth : MonoBehaviour
         GameObject playerPlacebo = Instantiate(deadPlayerPrefab, transform.position, transform.rotation);
         Globals.player = playerPlacebo;
         GameObject.FindGameObjectWithTag("MainCamera").SendMessage("PlayerChange", playerPlacebo);
-        
+
         Destroy(gameObject, 1.5f);
 
     }
@@ -36,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
     void endFlash()
     {
         GetComponent<SpriteRenderer>().material = defaultMaterial;
+        GameObject.FindGameObjectWithTag("Gun").GetComponent<SpriteRenderer>().material = defaultMaterial;
     }
 
     // Start is called before the first frame update
@@ -47,6 +49,6 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
