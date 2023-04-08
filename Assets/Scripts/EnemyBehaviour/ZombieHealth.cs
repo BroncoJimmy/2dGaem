@@ -27,6 +27,7 @@ public class ZombieHealth : MonoBehaviour
 
     public void damageTaken(int Damage)
     {
+        FontDisplay.instantiate("-" + Damage, new Vector2(transform.position.x, transform.position.y), FontDisplay.damagedColor, 1);
         if (renderer.material != flashMaterial)
         {
             GetComponent<SpriteRenderer>().material = flashMaterial;

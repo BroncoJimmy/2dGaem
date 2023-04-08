@@ -50,6 +50,7 @@ public class Grenade : MonoBehaviour
         if (collision.gameObject.tag == "Player" && !isLive)
         {
             collision.gameObject.GetComponent<PlayerScript>().numGrenades++;
+            FontDisplay.instantiate("+1", transform.position, FontDisplay.bombColor , 1);
             Destroy(gameObject);
         }
     }

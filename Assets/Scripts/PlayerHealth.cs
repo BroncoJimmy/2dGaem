@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] GameObject deadPlayerPrefab;
     public void damageTaken(int Damage)
     {
+        FontDisplay.instantiate("-" + Damage, new Vector2(transform.position.x - 0.02f, transform.position.y - 0.02f), FontDisplay.damagedColor, 1);
         GetComponent<SpriteRenderer>().material = flashMaterial;
         GameObject.FindGameObjectWithTag("Gun").GetComponent<SpriteRenderer>().material = flashMaterial;
         Invoke("endFlash", 0.5f);

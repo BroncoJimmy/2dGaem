@@ -14,9 +14,14 @@ public class AmmunitionItem : MonoBehaviour
         renderer.color = new Color(1, 1f - (float)((ammoCount - 3) * 0.05), 1f - (float)((ammoCount-3) * 0.1));
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.gameObject.tag == "Player")
+        {
+
+            Globals.player.GetComponent<AmmoSystem>().pistolAmmo += ammoCount;
+            FontDisplay.instantiate("+" + ammoCount, transform.position, FontDisplay.bulletColor, 1);
+            Destroy(gameObject);
+        }
     }
 }
