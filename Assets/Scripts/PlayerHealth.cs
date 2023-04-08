@@ -30,7 +30,7 @@ public class PlayerHealth : MonoBehaviour
         GameObject playerPlacebo = Instantiate(deadPlayerPrefab, transform.position, transform.rotation);
         Globals.player = playerPlacebo;
         GameObject.FindGameObjectWithTag("MainCamera").SendMessage("PlayerChange", playerPlacebo);
-
+        Invoke("displaySummary", 1.5f);
         Destroy(gameObject, 1.5f);
 
     }
@@ -39,6 +39,11 @@ public class PlayerHealth : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().material = defaultMaterial;
         GameObject.FindGameObjectWithTag("Gun").GetComponent<SpriteRenderer>().material = defaultMaterial;
+    }
+
+    void displaySummary()
+    {
+        GameObject.FindGameObjectWithTag("Summary").SendMessage("Activate");
     }
 
     // Start is called before the first frame update

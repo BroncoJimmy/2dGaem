@@ -5470,10 +5470,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5680038859908526521, guid: 8bd39744ce5b2934e84a0f452350298b, type: 3}
-      propertyPath: indicatorText
-      value: 
-      objectReference: {fileID: 8221796505768818370, guid: ccfd164928e656b4dac2752c3ea061ed, type: 3}
     - target: {fileID: 7449059267948163212, guid: 8bd39744ce5b2934e84a0f452350298b, type: 3}
       propertyPath: m_Name
       value: PopupTracker

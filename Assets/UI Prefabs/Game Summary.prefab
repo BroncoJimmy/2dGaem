@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1559424590197638650}
   m_Layer: 5
   m_Name: Game Summary
-  m_TagString: Untagged
+  m_TagString: Summary
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,6 +118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 214777a28b17329418dc52e31061df40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  summary: {fileID: 0}
+  kills: 0
+  damageDealt: 0
+  speedxp: 0
 --- !u!1 &1559424591834070846
 GameObject:
   m_ObjectHideFlags: 0

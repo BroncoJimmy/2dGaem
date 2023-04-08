@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5680038859908526521}
   m_Layer: 0
   m_Name: PopupTracker
-  m_TagString: Untagged
+  m_TagString: FontDisplayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fonts:
   - {fileID: 12800000, guid: 211528a069ce0f44b818ec33438ff3da, type: 3}
-  indicatorText: {fileID: 0}
+  indicatorText: {fileID: 8221796505768818370, guid: ccfd164928e656b4dac2752c3ea061ed, type: 3}
   colors:
   - {r: 0.5660378, g: 0.0035599158, b: 0.0035599158, a: 0}
   - {r: 0.057003528, g: 0.5849056, b: 0, a: 0}

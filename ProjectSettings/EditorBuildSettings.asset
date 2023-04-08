@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 3592c1fb2524a774686eb7553b0316c7
   - enabled: 1
+    path: Assets/Scenes/DungeonArea.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
     path: Assets/Scenes/OverworldScene.unity
     guid: 1c5a50505656159478723d6f8a37c115
   - enabled: 1
