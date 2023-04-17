@@ -24,7 +24,7 @@ public class FontDisplay : MonoBehaviour
         foreach (Font f in fonts)
         {
             f.material.mainTexture.filterMode = FilterMode.Point;
-            Debug.Log(f.material.mainTexture.filterMode.Equals(FilterMode.Point));
+            //Debug.Log(f.material.mainTexture.filterMode.Equals(FilterMode.Point));
         }
     }
 
