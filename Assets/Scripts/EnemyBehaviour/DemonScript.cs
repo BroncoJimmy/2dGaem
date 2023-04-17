@@ -94,7 +94,7 @@ public class DemonScript : MonoBehaviour
         if ((Globals.player.transform.position - transform.position).magnitude < stopDistance + 0.01f && attackDelayCountdown <= 0)
         {
             transform.rotation = Quaternion.AngleAxis(pointAngle, up);
-            animator.SetTrigger("Attack");
+            //animator.SetTrigger("Attack");
             GetComponent<FireProjectile>().Shoot();
             attackDelayCountdown = attackSpeed;
 
