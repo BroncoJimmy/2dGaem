@@ -31,6 +31,8 @@ public class DemonScript : MonoBehaviour
     public bool isLoaded { get; set; }
 
     [SerializeField] float attackDelayCountdown = 0;
+    FireProjectile projectileScript;
+
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +42,7 @@ public class DemonScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         newPos = transform.position;
         isLoaded = true;
+        projectileScript = GetComponent<FireProjectile>();
     }
 
     // Update is called once per frame
@@ -95,7 +98,8 @@ public class DemonScript : MonoBehaviour
         {
             transform.rotation = Quaternion.AngleAxis(pointAngle, up);
             //animator.SetTrigger("Attack");
-            GetComponent<FireProjectile>().Shoot();
+            //GetComponent<FireProjectile>().Shoot();
+            StartCoroutine(Attack());
             attackDelayCountdown = attackSpeed;
 
 
@@ -192,12 +196,17 @@ public class DemonScript : MonoBehaviour
 
     public IEnumerator Attack()
     {
-        GetComponent<FireProjectile>().Shoot();
-        yield return new WaitForSeconds(attackSpeed);
+        
+        projectileScript.Charge();
+        
+        yield return new WaitForSeconds(0.9f);
+        projectileScript.Shoot();
+
+        /*yield return new WaitForSeconds(attackSpeed);
         if (animator.GetBool("isAttacking"))
         {
             StartCoroutine(Attack());
-        }
+        }*/
     }
 
     public void wasHit(GameObject weapon)
