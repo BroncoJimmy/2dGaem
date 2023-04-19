@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameSummary : MonoBehaviour
@@ -9,8 +10,11 @@ public class GameSummary : MonoBehaviour
     public GameObject summary;
     public static Canvas canvas;
     public int kills;
+    public int level;
     public int damageDealt;
-    public float speedxp;
+    public float xp;
+    [SerializeField]
+    private Text text;
 
     private void Awake()
     {
@@ -37,6 +41,7 @@ public class GameSummary : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
         canvas.enabled = true;
+        text.text = "LEVEL: "+level+"\nKILLS: "+kills+"\nXP: "+xp;
     }
 
     public void Restart()
