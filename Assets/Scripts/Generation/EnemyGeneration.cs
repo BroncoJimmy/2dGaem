@@ -118,8 +118,12 @@ public class EnemyGeneration : MonoBehaviour
             {
                 if ((loadedObstacles[instance].transform.position - loadPoint).magnitude > renderDistance)
                 {
-                    //Debug.Log("Unloaded obstacle at " + loadedObstacles[instance].transform.position + ", Load point: " + loadPoint);
+                    if (unloadedObstacles.ContainsKey(loadedObstacles[instance].transform.position))
+                    {
+                        unloadedObstacles.Remove(loadedObstacles[instance].transform.position);
+                    }
                     unloadedObstacles.Add(loadedObstacles[instance].transform.position, loadedObstacles[instance]);
+                    Debug.Log("Unloaded obstacle at " + loadedObstacles[instance].transform.position + ", Load point: " + loadPoint);
                     Destroy(loadedObstacles[instance]);
                     loadedObstacles.RemoveAt(instance);
                     if (instance > 0)
