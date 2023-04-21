@@ -28,7 +28,12 @@ public class OptionsKeybind : MonoBehaviour
         {
             if (optionsMenu.GetComponent<Canvas>().enabled == false)
             {
+                Debug.Log(optionsMenu.GetComponent<Canvas>().enabled);
                 optionsMenu.Activate();
+            }
+            else
+            {
+                optionsMenu.Deactivate();
             }
         }
     }
