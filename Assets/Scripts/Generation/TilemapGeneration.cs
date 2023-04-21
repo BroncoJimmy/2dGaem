@@ -46,32 +46,46 @@ public class TilemapGeneration : MonoBehaviour
     public static IDictionary<bool[], int[]> presetData = new Dictionary<bool[], int[]>();
     BoundsInt bounds;
 
-
-    //List<int[]> roomKeys = new List<int[]>();
-    //List<Room> rooms = new List<Room>();
-    Room newRoom;
-
     IDictionary<int[], Room> roomData = new Dictionary<int[], Room>(Comparer);
 
-    /* IDictionary<int[], TileBase[]> storedRooms = new Dictionary<int[], TileBase[]>();
-    // Stores a list of coordinates (1 unit = 1 room) where rooms have been generated
-    List<int[]> roomsLoc = new List<int[]>();
-    // Stores the arrays of tiles for each room that has been generated
-    List<TileBase[]> storedRooms = new List<TileBase[]>();
-    // Keeps track of the room layouts at each point
-    List<int[]> roomTypes = new List<int[]>();
-    */
+    [SerializeField] float distanceFromSpawn;
+
+    // Uses this distribution -((x/10)-2)^2+5
+    //[SerializeField] float SPAWN_MAX { get { return 5 - Mathf.Pow(distanceFromSpawn/20f - 2, 0.5f); } }
+    [SerializeField] float spawnRateAvg;
+    float spawnRateTotal;
+    int totalSpawns;
+
+
+    int numRoomsLoaded;
+
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        player = Globals.player;
 
+        player = Globals.player;
+        distanceFromSpawn = 0;
+        /*for (int i = 0; i < 100; i++)
+        {
+            spawnRateTotal += (float) Globals.GenerateSkewedRandomNumber(0, 10, 2);
+
+        }
+        Debug.Log(spawnRateTotal / 100);
+        spawnRateTotal = 0;
+        for (int i = 0; i < 100; i++)
+        {
+            spawnRateTotal += (float)Globals.GenerateSkewedRandomNumber(0, 10, 5);
+
+        }
+        Debug.Log(spawnRateTotal / 100);
+        */
         updatePresets();
 
         bounds = wallPreset.cellBounds;
 
-        buildRoom(new int[] { 0, 0 });
+        buildRoom(new int[] { 0, 0 }, false);
         //generateEnemies(roomData[new int[] { 0, 0 }].floor, new Vector3Int(roomData[new int[] { 0, 0 }].location[0], roomData[new int[] { 0, 0 }].location[1]));
 
         // Instantiate(enemies[0], player.transform.position, Quaternion.Euler(0, 0, 0));
@@ -84,10 +98,11 @@ public class TilemapGeneration : MonoBehaviour
     {
         if (player != null)
         {
+            distanceFromSpawn = player.transform.position.magnitude;
             unloadRooms(player.transform.position);
             foreach (int[] loc in checkRooms(player.transform.position))
             {
-                buildRoom(loc);
+                buildRoom(loc, true);
                 //Debug.Log("Room loaded: " + loc[0] + ", " + loc[1]);
             }
         }
@@ -128,8 +143,9 @@ public class TilemapGeneration : MonoBehaviour
     }
 
     // Takes in a location in units of room size e.g.{1,4} and builds a random room at that location based off of parameters.
-    public Room buildRoom(int[] location)
+    public Room buildRoom(int[] location, bool hasEnemies)
     {
+        numRoomsLoaded++;
         int[] presetCoords = new int[2];
         int[] current = new int[2];
         bool[] newBlueprint = { true, true, true, true };
@@ -238,7 +254,10 @@ public class TilemapGeneration : MonoBehaviour
         currentRoom = new Room(newBlueprint, buildFloor(presetCoords, new Vector3Int(location[0], location[1])), buildWalls(presetCoords, new Vector3Int(location[0], location[1])), location);
         roomData.Add(location, currentRoom);
         generateObstacles(currentRoom.floor, new Vector3Int(location[0], location[1]));
-        generateEnemies(currentRoom.floor, new Vector3Int(location[0], location[1]));
+        if (hasEnemies)
+        {
+            generateEnemies(currentRoom.floor, new Vector3Int(location[0], location[1]));
+        }
         generateItems(currentRoom.floor, new Vector3Int(location[0], location[1]));
         //Debug.Log("Generated Enemies at " + location[0] + ", " + location[1]);
         return currentRoom;
@@ -299,12 +318,36 @@ public class TilemapGeneration : MonoBehaviour
 
     private void generateEnemies(TileBase[] preset, Vector3Int location)
     {
-        // Creates a list of enemies to be placed in the room (max 2)
-        List<GameObject> enemySet = new List<GameObject>(Random.Range(1, 3));
+
+        //int randomNumEnemies = Random.Range(0, (int)SPAWN_RATE/2) + Random.Range(0, (int)SPAWN_RATE/2);
+        /*spawnRateTotal += randomNumEnemies;
+        totalNum += 1;
+        spawnRateAvg = (spawnRateTotal / totalNum);
+        
         for (int index = 0; index < enemySet.Capacity; index++)
         {
             enemySet.Add(enemies[Random.Range(0, enemies.Length)]);
+        }*/
+        // Pulls a preset of enemies to be placed in the room
+        //int[] enemySet = enemyPresets[(int) Globals.GenerateSkewedRandomNumber(0, distanceFromSpawn, 5)];
+        List<int> enemySet = new List<int>();
+        int SPAWN_VALUE = 1 + (int) ((distanceFromSpawn + 2) / 5);
+        for (int i = 0; i < 3; i++)
+        {
+            int randEnemy = Random.Range(0, 4);
+            if (randEnemy > 0 && randEnemy <= SPAWN_VALUE)
+            {
+                SPAWN_VALUE -= randEnemy;
+                enemySet.Add(randEnemy);
+            }
         }
+        string set = "(";
+        for (int i = 0; i < enemySet.Count; i++)
+        {
+            set += enemySet[i] + " ";
+        }
+        Debug.Log("Generated " + set + " at " + location);
+
         for (int row = 2; row < roomSizeY - 2; row++)
         {
             for (int column = 3; column < roomSizeX - 3; column++)
@@ -312,16 +355,16 @@ public class TilemapGeneration : MonoBehaviour
                 if (preset[(roomSizeX * row) + column] != null && Random.Range(0, 10) == 5)
                 {
                     Vector3 newLocation = new Vector3((location.x * roomSizeX + column) * .16f - 0.08f, (location.y * roomSizeY + row) * .16f - 0.08f);
-                    //Debug.Log("New Enemy at " + newLocation + ", Coords (" + column + ", " + row);
-                    EnemyGeneration.generateEnemy(enemySet[0], newLocation);
+                    //Debug.Log(enemySet + " at " + newLocation + ", Coords (" + column + ", " + row);
+                    EnemyGeneration.generateEnemy(enemies[enemySet[0]-1], newLocation);
                     enemySet.RemoveAt(0);
                 }
-                if (enemySet.Count == 0)
+                if (enemySet.Count <= 0)
                 {
                     break;
                 }
             }
-            if (enemySet.Count == 0)
+            if (enemySet.Count <= 0)
             {
                 break;
             }

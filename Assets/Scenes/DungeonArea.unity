@@ -23927,6 +23927,12 @@ MonoBehaviour:
   - {fileID: 4999168760560275652, guid: ca87b6757b25729478d8cfce28cb245f, type: 3}
   obstacles:
   - {fileID: 6763939917826181270, guid: 48819e01021f62341932752347e6bc26, type: 3}
+  distanceFromSpawn: 0
+  spawnRateAvg: 0
+  enemyTypes:
+  - {fileID: 1954345619126450802, guid: a979cf16b1a05d14c9966413ce802cbb, type: 3}
+  - {fileID: 1212573115303277113, guid: fc48522ee728cac4082ecacbccad7730, type: 3}
+  - {fileID: 1214571981072138708, guid: f007e49bcb31d754e990dc7dfa9133be, type: 3}
 --- !u!212 &1635717693
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23987,7 +23993,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1635717691}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 2, z: 0}
+  m_LocalPosition: {x: -2.86, y: 2.24, z: 0}
   m_LocalScale: {x: 0.1888, y: 0.2184, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

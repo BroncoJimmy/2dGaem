@@ -123,7 +123,7 @@ public class EnemyGeneration : MonoBehaviour
                         unloadedObstacles.Remove(loadedObstacles[instance].transform.position);
                     }
                     unloadedObstacles.Add(loadedObstacles[instance].transform.position, loadedObstacles[instance]);
-                    Debug.Log("Unloaded obstacle at " + loadedObstacles[instance].transform.position + ", Load point: " + loadPoint);
+                    //Debug.Log("Unloaded obstacle at " + loadedObstacles[instance].transform.position + ", Load point: " + loadPoint);
                     Destroy(loadedObstacles[instance]);
                     loadedObstacles.RemoveAt(instance);
                     if (instance > 0)
