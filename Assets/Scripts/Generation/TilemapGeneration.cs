@@ -36,6 +36,7 @@ public class TilemapGeneration : MonoBehaviour
     [SerializeField] GameObject[] enemies;
     [SerializeField] GameObject[] items;
     [SerializeField] GameObject[] obstacles;
+    [SerializeField] GameObject dungeonEntrance;
     int roomSizeX = 17;
     int roomSizeY = 12;
     List<int[]> checkCoords;
@@ -47,6 +48,8 @@ public class TilemapGeneration : MonoBehaviour
     BoundsInt bounds;
 
     IDictionary<int[], Room> roomData = new Dictionary<int[], Room>(Comparer);
+
+    
 
     [SerializeField] float distanceFromSpawn;
 
@@ -64,7 +67,6 @@ public class TilemapGeneration : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         player = Globals.player;
         distanceFromSpawn = 0;
         /*for (int i = 0; i < 100; i++)
@@ -274,6 +276,10 @@ public class TilemapGeneration : MonoBehaviour
         {
             Debug.Log("Location Length = " + location.Length);
             generateEnemies(currentRoom.floor, new Vector3Int(location[0], location[1]));
+        } 
+        if (presetCoords.SequenceEqual(new int[] {0,2 }) && distanceFromSpawn > 15f)
+        {
+            Instantiate(dungeonEntrance, new Vector2((location[0] * roomSizeX + 8.5f) * 0.16f, (location[1] * roomSizeY + 5f) * 0.16f), Quaternion.identity);
         }
         generateItems(currentRoom.floor, new Vector3Int(location[0], location[1]));
         //Debug.Log("Generated Enemies at " + location[0] + ", " + location[1]);
@@ -561,5 +567,26 @@ public class IntArrEqualityComparer : EqualityComparer<int[]>
             hc = unchecked(hc * 17 + val);
         }
         return hc;
+    }
+}
+
+
+
+//To get a specific row or column from the multidimensional array you can use some LINQ:
+
+public class CustomArray<T>
+{
+    public T[] GetColumn(T[,] matrix, int columnNumber)
+    {
+        return Enumerable.Range(0, matrix.GetLength(0))
+                .Select(x => matrix[x, columnNumber])
+                .ToArray();
+    }
+
+    public T[] GetRow(T[,] matrix, int rowNumber)
+    {
+        return Enumerable.Range(0, matrix.GetLength(1))
+                .Select(x => matrix[rowNumber, x])
+                .ToArray();
     }
 }
