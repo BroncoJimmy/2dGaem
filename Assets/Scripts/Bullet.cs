@@ -49,6 +49,18 @@ public class Bullet : MonoBehaviour
             Debug.Log("Layer hit: " + collision.gameObject.layer);
             Destroy(gameObject);
         }
+        else if (collision.gameObject.tag.Equals("Crate"))
+        {
+            Debug.Log(" siugd my peen ");
+            collision.gameObject.SendMessage("damageTaken", damageAmount);
+            //GetComponent<EnemyScript>().wasHit(gameObject);
+
+            // Debug.Log("Layer hit: " + collision.gameObject.layer);
+            Destroy(gameObject);
+
+
+        }
+        Debug.Log(collision.gameObject.tag);
 
 
     }
