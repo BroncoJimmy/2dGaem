@@ -25,7 +25,7 @@ public class FireProjectile : MonoBehaviour
 
     public void Charge()
     {
-        Debug.Log("Charging");
+        // Debug.Log("Charging");
         GameObject newFireball = Instantiate(fireballCharge, firePoint.position + firePoint.up*0.1f, firePoint.rotation);
         Destroy(newFireball, 1);
     }

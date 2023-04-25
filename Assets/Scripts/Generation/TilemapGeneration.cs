@@ -36,6 +36,7 @@ public class TilemapGeneration : MonoBehaviour
     [SerializeField] GameObject[] enemies;
     [SerializeField] GameObject[] items;
     [SerializeField] GameObject[] obstacles;
+    [SerializeField] GameObject dungeonEntrance;
     int roomSizeX = 17;
     int roomSizeY = 12;
     List<int[]> checkCoords;
@@ -43,10 +44,12 @@ public class TilemapGeneration : MonoBehaviour
 
 
     // Stores the relevant data for each preset room ({North exit, East, South, West}, {tilemapLocation.x, tilemapLocation.y})
-    public static IDictionary<bool[], int[]> presetData = new Dictionary<bool[], int[]>();
+    public static IDictionary<bool[], int[,]> presetData = new Dictionary<bool[], int[,]>();
     BoundsInt bounds;
 
     IDictionary<int[], Room> roomData = new Dictionary<int[], Room>(Comparer);
+
+    
 
     [SerializeField] float distanceFromSpawn;
 
@@ -64,7 +67,6 @@ public class TilemapGeneration : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         player = Globals.player;
         distanceFromSpawn = 0;
         /*for (int i = 0; i < 100; i++)
@@ -216,23 +218,39 @@ public class TilemapGeneration : MonoBehaviour
 
         }
         else { emptyIndexes.Add(3); }
-
+        
         while (falseCount < 2)
         {
-            int randInt = (int)(Random.Range(0, 2));
-            newBlueprint[emptyIndexes[(int)(Random.Range(0, emptyIndexes.Count) - 0.000001f)]] = (randInt == 1);
+            int randInt = (int)(Random.Range(0, 3));
+            int randomSpot = Random.Range(0, emptyIndexes.Count);
+            // Debug.Log("Random index = " + randomSpot + "; Max: " + emptyIndexes.Count);
+            newBlueprint[emptyIndexes[randomSpot]] = (randInt != 1);
             if (randInt != 1)
             {
                 falseCount++;
             }
         }
 
+        string roomType = "(";
+        foreach (bool i in newBlueprint)
+        {
+            roomType += " ," + i;
+        }
+        roomType += " )";
+        //Debug.Log(roomType + " generated at " + location);
+        // Grabs the set of rooms that fit the parameters and adds a random one of them to presetCoords variable
         foreach (var kvp in presetData)
         {
-
             if (kvp.Key.SequenceEqual<bool>(newBlueprint))
             {
-                presetCoords = presetData[kvp.Key];
+
+                int roomChoice = Random.Range(0, presetData[kvp.Key].GetLength(0));
+                //Debug.Log(roomChoice);
+                for (int i = 0; i < 2; i++)
+                {
+                    presetCoords[i] = presetData[kvp.Key][roomChoice, i];
+                }
+                
             }
 
         }
@@ -256,7 +274,12 @@ public class TilemapGeneration : MonoBehaviour
         generateObstacles(currentRoom.floor, new Vector3Int(location[0], location[1]));
         if (hasEnemies)
         {
+            Debug.Log("Location Length = " + location.Length);
             generateEnemies(currentRoom.floor, new Vector3Int(location[0], location[1]));
+        } 
+        if (presetCoords.SequenceEqual(new int[] {0,2 }) && distanceFromSpawn > 15f)
+        {
+            Instantiate(dungeonEntrance, new Vector2((location[0] * roomSizeX + 8.5f) * 0.16f, (location[1] * roomSizeY + 5f) * 0.16f), Quaternion.identity);
         }
         generateItems(currentRoom.floor, new Vector3Int(location[0], location[1]));
         //Debug.Log("Generated Enemies at " + location[0] + ", " + location[1]);
@@ -346,7 +369,7 @@ public class TilemapGeneration : MonoBehaviour
         {
             set += enemySet[i] + " ";
         }
-        Debug.Log("Generated " + set + " at " + location);
+        //Debug.Log("Generated " + set + " at " + location);
 
         for (int row = 2; row < roomSizeY - 2; row++)
         {
@@ -502,17 +525,18 @@ public class TilemapGeneration : MonoBehaviour
     // Initializes the presetData Dictionary with values ({North exit?, East?, South?, West?}, {tilemapLocation.x, tilemapLocation.y})
     public void updatePresets()
     {
-        presetData.Add(new bool[] { true, true, false, false }, new int[] { 0, 0 });
-        presetData.Add(new bool[] { false, false, true, true }, new int[] { 0, 1 });
-        presetData.Add(new bool[] { true, true, true, true }, new int[] { 1, 0 });
-        presetData.Add(new bool[] { true, true, true, false }, new int[] { 1, 1 });
-        presetData.Add(new bool[] { false, true, true, false }, new int[] { 1, 2 });
-        presetData.Add(new bool[] { false, true, false, true }, new int[] { 2, 0 });
-        presetData.Add(new bool[] { true, true, false, true }, new int[] { 2, 1 });
-        presetData.Add(new bool[] { false, true, true, true }, new int[] { 2, 2 });
-        presetData.Add(new bool[] { true, false, false, true }, new int[] { 3, 0 });
-        presetData.Add(new bool[] { true, false, true, true }, new int[] { 3, 1 });
-        presetData.Add(new bool[] { true, false, true, false }, new int[] { 3, 2 });
+        presetData.Add(new bool[] { true, true, false, false }, new int[,] { { 0, 0 } });
+        presetData.Add(new bool[] { false, false, true, true }, new int[,] { { 0, 1 } });
+        presetData.Add(new bool[] { true, true, true, true }, new int[,] { { 1, 0 } , { 0, 2 } });
+        presetData.Add(new bool[] { true, true, true, false }, new int[,] { { 1, 1 } });
+        presetData.Add(new bool[] { false, true, true, false }, new int[,] { { 1, 2 } });
+        presetData.Add(new bool[] { false, true, false, true }, new int[,] { { 2, 0 } });
+        presetData.Add(new bool[] { true, true, false, true }, new int[,] { { 2, 1 } });
+        presetData.Add(new bool[] { false, true, true, true }, new int[,] { { 2, 2 } });
+        presetData.Add(new bool[] { true, false, false, true }, new int[,] { { 3, 0 } });
+        presetData.Add(new bool[] { true, false, true, true }, new int[,] { { 3, 1 } });
+        presetData.Add(new bool[] { true, false, true, false }, new int[,] { { 3, 2 } });
+
     }
 
 
@@ -543,5 +567,26 @@ public class IntArrEqualityComparer : EqualityComparer<int[]>
             hc = unchecked(hc * 17 + val);
         }
         return hc;
+    }
+}
+
+
+
+//To get a specific row or column from the multidimensional array you can use some LINQ:
+
+public class CustomArray<T>
+{
+    public T[] GetColumn(T[,] matrix, int columnNumber)
+    {
+        return Enumerable.Range(0, matrix.GetLength(0))
+                .Select(x => matrix[x, columnNumber])
+                .ToArray();
+    }
+
+    public T[] GetRow(T[,] matrix, int rowNumber)
+    {
+        return Enumerable.Range(0, matrix.GetLength(1))
+                .Select(x => matrix[rowNumber, x])
+                .ToArray();
     }
 }

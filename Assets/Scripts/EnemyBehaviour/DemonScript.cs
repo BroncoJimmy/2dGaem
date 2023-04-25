@@ -32,6 +32,7 @@ public class DemonScript : MonoBehaviour
 
     [SerializeField] float attackDelayCountdown = 0;
     FireProjectile projectileScript;
+    bool attacking = false;
 
 
     // Start is called before the first frame update
@@ -88,7 +89,7 @@ public class DemonScript : MonoBehaviour
             }
 
         }
-        else if (moveVector.magnitude != 0 && moveVector.magnitude < stopDistance * 0.75f)
+        else if (moveVector.magnitude != 0 && moveVector.magnitude < stopDistance * 0.75f && !attacking)
         {
             bool success = TryMove(-moveVector);
 
@@ -196,11 +197,14 @@ public class DemonScript : MonoBehaviour
 
     public IEnumerator Attack()
     {
-        
+
+        attacking = true;
         projectileScript.Charge();
         
         yield return new WaitForSeconds(0.9f);
+        
         projectileScript.Shoot();
+        attacking = false;
 
         /*yield return new WaitForSeconds(attackSpeed);
         if (animator.GetBool("isAttacking"))

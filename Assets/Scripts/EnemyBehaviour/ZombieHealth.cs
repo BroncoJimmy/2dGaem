@@ -59,7 +59,7 @@ public class ZombieHealth : MonoBehaviour
         animator.SetTrigger("Death");
         EnemyGeneration.loadedEnemies.Remove(gameObject);
         //Debug.Log("# of enemies: " + EnemyGeneration.loadedEnemies.Count);
-        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton_Walk"));
+        // Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton_Walk"));
         Destroy(gameObject, 2f);
         //Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
         //Death animation?
