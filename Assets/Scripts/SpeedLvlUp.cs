@@ -27,10 +27,11 @@ public class SpeedLvlUp : MonoBehaviour
         }
 
         //Levelling Up
-        if (speedXP >= 5 && PlayerScript.moveSpeed < 1.9)
+        if (speedXP >= 5 && PlayerScript.moveSpeed < 2)
         {
             PlayerScript.moveSpeed += 0.01f;
             speedXP = 0;
         }
+
     }
 }

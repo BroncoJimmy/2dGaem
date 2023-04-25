@@ -16,7 +16,7 @@ public class GunScript : MonoBehaviour
     [SerializeField] float fireSpeed = 20f;
     AmmoSystem ammoSystem;
 
-    [SerializeField] int gunDamage = 20;
+    [SerializeField] public int gunDamage = 20;
 
     [SerializeField] GameObject grenade;
     [SerializeField] bool isThrowing;

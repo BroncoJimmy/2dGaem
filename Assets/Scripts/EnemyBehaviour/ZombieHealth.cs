@@ -4,6 +4,10 @@ using UnityEngine;
 //
 public class ZombieHealth : MonoBehaviour
 {
+    public GameObject player;
+    public int dmgXP;
+    [SerializeField] bool isDead = false;
+
     Animator animator;
     [SerializeField] SpriteRenderer renderer;
     [SerializeField] int zHealth = 100;
@@ -27,6 +31,10 @@ public class ZombieHealth : MonoBehaviour
 
     public void damageTaken(int Damage)
     {
+        if (isDead) {
+            return;
+        }
+
         FontDisplay.instantiate("-" + Damage, new Vector2(transform.position.x, transform.position.y), FontDisplay.damagedColor, 1);
         if (renderer.material != flashMaterial)
         {
@@ -40,6 +48,9 @@ public class ZombieHealth : MonoBehaviour
         if (zHealth <= 0)
         {
             zDeath();
+            DamageXP dmgXP = player.GetComponent<DamageXP>();
+            dmgXP.shootXP += 10;
+            isDead = true;
         }
     }
 
