@@ -196,6 +196,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4748673208366033136, guid: 63f90b01e837ebf428dffa3138caaf4c, type: 3}
   m_PrefabInstance: {fileID: 4304650920869119820}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &320951312 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4748673208366033137, guid: 63f90b01e837ebf428dffa3138caaf4c, type: 3}
+  m_PrefabInstance: {fileID: 4304650920869119820}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &360573004 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4748673208366033136, guid: 63f90b01e837ebf428dffa3138caaf4c, type: 3}
@@ -7041,7 +7052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4748673208366033143, guid: 63f90b01e837ebf428dffa3138caaf4c, type: 3}
       propertyPath: m_Name
-      value: KillsText
+      value: Text
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63f90b01e837ebf428dffa3138caaf4c, type: 3}
@@ -7441,8 +7452,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   summary: {fileID: 6807568668220096164}
   kills: 0
+  level: 1
   damageDealt: 0
-  speedxp: 0
+  xp: 0
+  text: {fileID: 320951312}
 --- !u!114 &6807568668220096173
 MonoBehaviour:
   m_ObjectHideFlags: 0

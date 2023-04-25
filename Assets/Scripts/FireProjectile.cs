@@ -6,8 +6,10 @@ public class FireProjectile : MonoBehaviour
 {
     [SerializeField] int hitDamage;
     [SerializeField] float fireSpeed;
+    [SerializeField] GameObject fireballCharge;
     [SerializeField] GameObject projectile;
     [SerializeField] Transform firePoint;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +21,13 @@ public class FireProjectile : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Charge()
+    {
+        // Debug.Log("Charging");
+        GameObject newFireball = Instantiate(fireballCharge, firePoint.position + firePoint.up*0.1f, firePoint.rotation);
+        Destroy(newFireball, 1);
     }
 
     public void Shoot()

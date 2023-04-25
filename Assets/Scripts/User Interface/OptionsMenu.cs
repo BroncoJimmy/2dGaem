@@ -26,20 +26,6 @@ public class OptionsMenu : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         Invoke("Deactivate", .01f);
     }
-    
-    //Press Escape to close the menu.
-    void Update()
-    {
-        if (Input.GetKeyDown("escape"))
-        {
-            Debug.Log("Hello");
-            if (canvas.enabled == true)
-            {
-                Deactivate();
-            }
-            
-        }
-    }
 
     //The two methods below disable/enable the Canvas component of this GameObject which stops the menu from rendering.
     public void Deactivate()

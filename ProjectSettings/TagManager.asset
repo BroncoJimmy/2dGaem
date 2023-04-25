@@ -8,6 +8,7 @@ TagManager:
   - Gun
   - Summary
   - FontDisplayer
+  - Crate
   layers:
   - Default
   - TransparentFX

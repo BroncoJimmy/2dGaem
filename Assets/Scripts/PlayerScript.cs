@@ -15,6 +15,27 @@ public class Globals
     public static int ENEMY_LAYER { get { return 6; } }
     public static int FLYING_LAYER { get { return 9; } }
     public static int ITEM_LAYER { get { return 8; } }
+
+    public static System.Random random = new System.Random();
+
+    public static double GenerateSkewedRandomNumber(double a, double b, double skewness)
+    {
+        double mu = (a + b) / 2;
+        double sigma = (b - a) / (2 * skewness);
+
+        double x = random.NextDouble();
+        double y = random.NextDouble();
+
+        double z = Mathf.Sqrt(-2 * Mathf.Log((float)x)) * Mathf.Cos(2 * Mathf.PI * (float)y);
+        double result = Mathf.Exp((float)(mu + sigma * z));
+
+        if (result < a || result > b)
+        {
+            result = GenerateSkewedRandomNumber(a, b, skewness);
+        }
+        
+        return result;
+    }
 }
 
 public class PlayerScript : MonoBehaviour

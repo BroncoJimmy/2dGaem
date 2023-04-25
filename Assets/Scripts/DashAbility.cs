@@ -77,7 +77,7 @@ public class DashAbility : MonoBehaviour
         yield return new WaitForSeconds(dashingTime);
         isDashing = false;
         tr.emitting = false;
-        Debug.Log("DISTANCE: " + (startPosition - Globals.player.transform.position).magnitude + "; DASH COUNT: " + dashCount);
+        //Debug.Log("DISTANCE: " + (startPosition - Globals.player.transform.position).magnitude + "; DASH COUNT: " + dashCount);
 
         yield return new WaitForSeconds(dashReloadTime);
         isDashAvailable = true;

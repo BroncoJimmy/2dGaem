@@ -144,6 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitDamage: 20
   fireSpeed: 1.2
+  fireballCharge: {fileID: 8194270011834224882, guid: 19e7fe36477cb9c40bfbd9fd3c9721a1, type: 3}
   projectile: {fileID: 7444873657373177872, guid: f94b1ea671ea6034d937a05867c1eef5, type: 3}
   firePoint: {fileID: 6568648542515590550}
 --- !u!114 &8190403846036807059

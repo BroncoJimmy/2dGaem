@@ -26,7 +26,7 @@ public class EnemyGeneration : MonoBehaviour
     {
         removeEnemies(Globals.player.transform.position);
         removeItems(Globals.player.transform.position);
-        
+        removeObstacles(Globals.player.transform.position);
     }
 
     private void FixedUpdate()
@@ -67,7 +67,7 @@ public class EnemyGeneration : MonoBehaviour
                 {
                     //Debug.Log("Unloaded enemy at " + loadedEnemies[instance].transform.position + ", Load point: " + loadPoint);
                     //removeKeys.Add(instance.Key);
-                    Debug.Log("Deleted " + loadedEnemies[instance] + " at " + loadedEnemies[instance].transform.position);
+                    //Debug.Log("Deleted " + loadedEnemies[instance] + " at " + loadedEnemies[instance].transform.position);
                     Destroy(loadedEnemies[instance]);
                     //Debug.Log(instance + ", " + loadedEnemies[instance].transform.position);
                     loadedEnemies.RemoveAt(instance);
@@ -104,6 +104,32 @@ public class EnemyGeneration : MonoBehaviour
                     loadedItems.RemoveAt(instance);
                     instance--;
 
+                }
+            }
+        }
+
+    }
+
+    private void removeObstacles(Vector3 loadPoint)
+    {
+        for (int instance = 0; instance < loadedObstacles.Count; instance++)
+        {
+            if (loadedObstacles[instance] != null)
+            {
+                if ((loadedObstacles[instance].transform.position - loadPoint).magnitude > renderDistance)
+                {
+                    if (unloadedObstacles.ContainsKey(loadedObstacles[instance].transform.position))
+                    {
+                        unloadedObstacles.Remove(loadedObstacles[instance].transform.position);
+                    }
+                    unloadedObstacles.Add(loadedObstacles[instance].transform.position, loadedObstacles[instance]);
+                    //Debug.Log("Unloaded obstacle at " + loadedObstacles[instance].transform.position + ", Load point: " + loadPoint);
+                    Destroy(loadedObstacles[instance]);
+                    loadedObstacles.RemoveAt(instance);
+                    if (instance > 0)
+                    {
+                        instance--;
+                    }
                 }
             }
         }

@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
 
             newAngle.eulerAngles = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z + Random.Range(160, 200));
             Instantiate(splatter, transform.position, newAngle);
-            Debug.Log("Layer hit: " + collision.gameObject.layer);
+            // Debug.Log("Layer hit: " + collision.gameObject.layer);
             Destroy(gameObject);
 
 
@@ -49,6 +49,18 @@ public class Bullet : MonoBehaviour
             Debug.Log("Layer hit: " + collision.gameObject.layer);
             Destroy(gameObject);
         }
+        else if (collision.gameObject.tag.Equals("Crate"))
+        {
+            Debug.Log(" siugd my peen ");
+            collision.gameObject.SendMessage("damageTaken", damageAmount);
+            //GetComponent<EnemyScript>().wasHit(gameObject);
+
+            // Debug.Log("Layer hit: " + collision.gameObject.layer);
+            Destroy(gameObject);
+
+
+        }
+        Debug.Log(collision.gameObject.tag);
 
 
     }

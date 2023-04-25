@@ -31,6 +31,9 @@ public class DemonScript : MonoBehaviour
     public bool isLoaded { get; set; }
 
     [SerializeField] float attackDelayCountdown = 0;
+    FireProjectile projectileScript;
+    bool attacking = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +43,7 @@ public class DemonScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         newPos = transform.position;
         isLoaded = true;
+        projectileScript = GetComponent<FireProjectile>();
     }
 
     // Update is called once per frame
@@ -85,7 +89,7 @@ public class DemonScript : MonoBehaviour
             }
 
         }
-        else if (moveVector.magnitude != 0 && moveVector.magnitude < stopDistance * 0.75f)
+        else if (moveVector.magnitude != 0 && moveVector.magnitude < stopDistance * 0.75f && !attacking)
         {
             bool success = TryMove(-moveVector);
 
@@ -94,8 +98,9 @@ public class DemonScript : MonoBehaviour
         if ((Globals.player.transform.position - transform.position).magnitude < stopDistance + 0.01f && attackDelayCountdown <= 0)
         {
             transform.rotation = Quaternion.AngleAxis(pointAngle, up);
-            animator.SetTrigger("Attack");
-            GetComponent<FireProjectile>().Shoot();
+            //animator.SetTrigger("Attack");
+            //GetComponent<FireProjectile>().Shoot();
+            StartCoroutine(Attack());
             attackDelayCountdown = attackSpeed;
 
 
@@ -192,12 +197,20 @@ public class DemonScript : MonoBehaviour
 
     public IEnumerator Attack()
     {
-        GetComponent<FireProjectile>().Shoot();
-        yield return new WaitForSeconds(attackSpeed);
+
+        attacking = true;
+        projectileScript.Charge();
+        
+        yield return new WaitForSeconds(0.9f);
+        
+        projectileScript.Shoot();
+        attacking = false;
+
+        /*yield return new WaitForSeconds(attackSpeed);
         if (animator.GetBool("isAttacking"))
         {
             StartCoroutine(Attack());
-        }
+        }*/
     }
 
     public void wasHit(GameObject weapon)
