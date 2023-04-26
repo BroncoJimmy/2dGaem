@@ -55,6 +55,7 @@ public class PlayerScript : MonoBehaviour
     public bool isStatic;
 
     [SerializeField] Camera mainCam;
+    [SerializeField] CameraShake camShake;
     Vector2 mousePos;
     public Vector3 up = new Vector3(0, 0, 1);
     [SerializeField] bool isDashAvailable = true;
@@ -62,6 +63,7 @@ public class PlayerScript : MonoBehaviour
 
     void Start()
     {
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().Shake(4.0f);
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
