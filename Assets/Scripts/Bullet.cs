@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
 
             newAngle.eulerAngles = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z + Random.Range(160, 200));
             Instantiate(splatter, transform.position, newAngle);
-            // Debug.Log("Layer hit: " + collision.gameObject.layer);
+            Debug.Log("Layer hit: " + collision.gameObject.layer);
             Destroy(gameObject);
 
 

@@ -4,7 +4,6 @@ using UnityEngine;
 //
 public class ZombieHealth : MonoBehaviour
 {
-    public GameObject player;
     public int dmgXP;
     [SerializeField] bool isDead = false;
 
@@ -48,7 +47,7 @@ public class ZombieHealth : MonoBehaviour
         if (zHealth <= 0)
         {
             zDeath();
-            DamageXP dmgXP = player.GetComponent<DamageXP>();
+            DamageXP dmgXP = Globals.player.GetComponent<DamageXP>();
             dmgXP.shootXP += 10;
             isDead = true;
         }
