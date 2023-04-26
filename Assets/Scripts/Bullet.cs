@@ -30,6 +30,7 @@ public class Bullet : MonoBehaviour
         newAngle.eulerAngles = new Vector3(0, 0, transform.rotation.eulerAngles.z);
         if (collision.gameObject.tag.Equals("Enemy"))
         {
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().Shake(.3f);
             GameObject effect = Instantiate(hitEffect, transform.position, newAngle);
             Destroy(effect, 0.25f);
             collision.gameObject.SendMessage("wasHit", gameObject);
