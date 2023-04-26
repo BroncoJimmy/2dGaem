@@ -27,6 +27,21 @@ public class OptionsMenu : MonoBehaviour
         Invoke("Deactivate", .01f);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown("escape"))
+        {
+            if (!canvas.enabled)
+            {
+                Activate();
+            }
+            else
+            {
+                Deactivate();
+            }
+        }
+    }
+
     //The two methods below disable/enable the Canvas component of this GameObject which stops the menu from rendering.
     public void Deactivate()
     {

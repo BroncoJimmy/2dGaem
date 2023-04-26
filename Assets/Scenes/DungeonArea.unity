@@ -25802,6 +25802,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 5605784202643274716, guid: 29f609d296d6d9a4b8e92998ec671a26, type: 3}
+      propertyPath: antialiasingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5605784202643274716, guid: 29f609d296d6d9a4b8e92998ec671a26, type: 3}
+      propertyPath: fastApproximateAntialiasing.fastMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5605784202643274717, guid: 29f609d296d6d9a4b8e92998ec671a26, type: 3}
       propertyPath: player
       value: 
