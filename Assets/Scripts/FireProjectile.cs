@@ -38,4 +38,19 @@ public class FireProjectile : MonoBehaviour
         Rigidbody2D bulletBody = newBullet.GetComponent<Rigidbody2D>();
         bulletBody.AddForce(firePoint.up * fireSpeed, ForceMode2D.Impulse);
     }
+
+    public void Shoot(Transform newPoint, Color color, float fireDistance)
+    {
+        GameObject newBullet = Instantiate(projectile, newPoint.position, newPoint.rotation);
+        newBullet.GetComponent<Bullet>().damageAmount = hitDamage;
+        newBullet.GetComponent<SpriteRenderer>().color = color;
+        newBullet.GetComponent<Bullet>().fireRange = fireDistance;
+        Rigidbody2D bulletBody = newBullet.GetComponent<Rigidbody2D>();
+        bulletBody.AddForce(newPoint.up * fireSpeed, ForceMode2D.Impulse);
+    }
+
+    public void Spray(Transform point, int amount)
+    {
+
+    }
 }

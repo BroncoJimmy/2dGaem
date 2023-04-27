@@ -16,7 +16,7 @@ public class GunScript : MonoBehaviour
     [SerializeField] float fireSpeed = 20f;
     AmmoSystem ammoSystem;
 
-    [SerializeField] int gunDamage = 20;
+    [SerializeField] public int gunDamage = 20;
 
     [SerializeField] GameObject grenade;
     [SerializeField] bool isThrowing;
@@ -24,13 +24,16 @@ public class GunScript : MonoBehaviour
 
     DashAbility dash_script;
 
+    private void Awake()
+    {
+        dash_script = Globals.player.GetComponent<DashAbility>();
+        ammoSystem = Globals.player.GetComponent<AmmoSystem>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         renderer = GetComponent<SpriteRenderer>();
-        dash_script = Globals.player.GetComponent<DashAbility>();
-        ammoSystem = Globals.player.GetComponent<AmmoSystem>();
         ammoSystem.pistolAmmo = 20;
     }
 
@@ -116,4 +119,5 @@ public class GunScript : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
 }

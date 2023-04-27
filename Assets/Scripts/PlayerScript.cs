@@ -55,19 +55,27 @@ public class PlayerScript : MonoBehaviour
     public bool isStatic;
 
     [SerializeField] Camera mainCam;
+    [SerializeField] CameraShake camShake;
     Vector2 mousePos;
     public Vector3 up = new Vector3(0, 0, 1);
     [SerializeField] bool isDashAvailable = true;
     public int numGrenades = 0;
 
+
+    private void Awake()
+    {
+        Debug.Log("Player set to: " + GameObject.FindGameObjectWithTag("Player"));
+        Globals.player = GameObject.FindGameObjectWithTag("Player");
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().Shake(4.0f);
+    }
     void Start()
     {
+        
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         bodyCollider = GetComponent<Collider2D>();
-        Globals.player = GameObject.FindGameObjectWithTag("Player");
         numGrenades = 0x10;
     }
 
@@ -154,4 +162,5 @@ public class PlayerScript : MonoBehaviour
         }
         return false;
     }
+
 }
