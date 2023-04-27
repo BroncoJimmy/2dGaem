@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     Vector3 startPos;
-    [SerializeField] float fireRange = 0.2f;
+    public float fireRange = 0.2f;
     [SerializeField] GameObject splatter;
     [SerializeField] GameObject hitEffect;
 
@@ -23,6 +23,10 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         //Debug.DrawRay(transform.position, Vector3.ClampMagnitude((startPos - transform.position), 0.5f), Color.white);
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Debug.Log("Damage: " + damageAmount);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -31,6 +35,7 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.tag.Equals("Enemy"))
         {
             GameObject effect = Instantiate(hitEffect, transform.position, newAngle);
+            effect.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
             Destroy(effect, 0.25f);
             collision.gameObject.SendMessage("wasHit", gameObject);
             //GetComponent<EnemyScript>().wasHit(gameObject);
@@ -45,6 +50,7 @@ public class Bullet : MonoBehaviour
         else if (!collision.gameObject.layer.Equals(Globals.ITEM_LAYER))
         {
             GameObject effect = Instantiate(hitEffect, transform.position + new Vector3(Globals.lookDirection.x * 0.1f, Globals.lookDirection.y * 0.1f, -5f), newAngle);
+            effect.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
             Destroy(effect, 0.25f);
             Debug.Log("Layer hit: " + collision.gameObject.layer);
             Destroy(gameObject);
@@ -73,6 +79,7 @@ public class Bullet : MonoBehaviour
             collision.gameObject.SendMessage("damageTaken", damageAmount);
 
             GameObject effect = Instantiate(hitEffect, transform.position + transform.up * 0.1f, Quaternion.Euler(0, 0, Random.Range(0, 180)));
+            effect.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
             Destroy(effect, effect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
             Destroy(gameObject);
         }
@@ -83,6 +90,7 @@ public class Bullet : MonoBehaviour
     void Delete()
     {
         GameObject effect = Instantiate(hitEffect, transform.position + transform.up * 0.1f, Quaternion.Euler(0, 0, Random.Range(0, 180)));
+        effect.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
         Destroy(effect, effect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
         Destroy(gameObject);
     }

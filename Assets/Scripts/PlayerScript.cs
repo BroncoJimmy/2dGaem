@@ -61,15 +61,21 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] bool isDashAvailable = true;
     public int numGrenades = 0;
 
+
+    private void Awake()
+    {
+        Debug.Log("Player set to: " + GameObject.FindGameObjectWithTag("Player"));
+        Globals.player = GameObject.FindGameObjectWithTag("Player");
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().Shake(4.0f);
+    }
     void Start()
     {
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().Shake(4.0f);
+        
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         bodyCollider = GetComponent<Collider2D>();
-        Globals.player = GameObject.FindGameObjectWithTag("Player");
         numGrenades = 0x10;
     }
 
@@ -156,4 +162,5 @@ public class PlayerScript : MonoBehaviour
         }
         return false;
     }
+
 }

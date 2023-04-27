@@ -16,6 +16,14 @@ public class BossBehaviour : MonoBehaviour
     EnemyGeneration enemyGeneration;
 
     [SerializeField] GameObject[] enemies;
+    [SerializeField] GameObject child;
+    [SerializeField] Transform firePoint;
+    [SerializeField] List<Transform> firePoints = new List<Transform>();
+    private Vector3 lookVector;
+    private float pointAngle;
+
+    float moveCountdown = 0f;
+    float DELAY_TIME = 7f;
 
     // Start is called before the first frame update
     void Start()
@@ -26,13 +34,19 @@ public class BossBehaviour : MonoBehaviour
         projectileScript = GetComponent<FireProjectile>();
         enemyGeneration = GetComponent<EnemyGeneration>();
         transform.position = positions[0];
-        StartCoroutine(Attack());
+        //StartCoroutine(Attack());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //transform.Rotate(new Vector3(0,0,1f));
+        if (moveCountdown <= 0)
+        {
+            StartCoroutine(Attack());
+            moveCountdown = DELAY_TIME;
+        }
+        moveCountdown -= Time.deltaTime;
     }
 
     public IEnumerator Attack()
@@ -52,7 +66,7 @@ public class BossBehaviour : MonoBehaviour
             StartCoroutine(BlueAttack());
         } else if (randomAttack == 1)
         {
-            StartCoroutine(RedAttack());
+            StartCoroutine(RedAttack(11));
         } else if (randomAttack == 2)
         {
             StartCoroutine(GreenAttack());
@@ -62,26 +76,43 @@ public class BossBehaviour : MonoBehaviour
     public IEnumerator BlueAttack()
     {
         animator.SetBool("Blue", true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         animator.SetBool("Blue", false);
     }
 
-    public IEnumerator RedAttack()
+    public IEnumerator RedAttack(int sprayCount)
     {
         animator.SetBool("Red", true);
-        yield return new WaitForSeconds(2f);
+        
+        yield return new WaitForSeconds(1.5f);
+        lookVector = Globals.player.transform.position - transform.position;
+        pointAngle = Mathf.Atan2(lookVector.y, lookVector.x) * Mathf.Rad2Deg - 90f;
+        child.transform.eulerAngles = (new Vector3(0, 0, pointAngle));
+        float angleOffset = 0;
+        float angleTotal = 0;
+        for (int i = 0; i < sprayCount; i++)
+        {
+            child.transform.Rotate(new Vector3(0, 0, angleOffset));
+
+            Debug.Log("Rotation: " + child.transform.rotation.eulerAngles.z);
+            projectileScript.Shoot(firePoint, Color.red, 5f);
+            angleTotal += 5f;
+            angleOffset += angleOffset >= 0 ? -angleTotal : angleTotal;
+            //Debug.Log(firePoint.transform.rotation);
+        }
         animator.SetBool("Red", false);
     }
     
     public IEnumerator GreenAttack()
     {
         animator.SetBool("Green", true);
-        for (int i = 0; i < 3; i++)
+        int amount = Random.Range(1, 4);
+        for (int i = 0; i < amount; i++)
         {
             Vector3 newPosition = new Vector2(Random.Range(0, 20) * .16f - 1.6f, Random.Range(0, 20) * .16f - 1.6f);
             EnemyGeneration.generateEnemy(enemies[Random.Range(0,3)], newPosition);
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         animator.SetBool("Green", false);
     }
 
