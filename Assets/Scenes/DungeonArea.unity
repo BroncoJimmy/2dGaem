@@ -25548,6 +25548,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3568816757219988715, guid: 60a3ece0d24aaea49836a20d667d714c, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 211528a069ce0f44b818ec33438ff3da, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60a3ece0d24aaea49836a20d667d714c, type: 3}
 --- !u!1001 &765898491
@@ -26866,7 +26870,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0.28434372
+          time: 0
           value: 1
           inSlope: -0.16381414
           outSlope: -0.16381414
@@ -26877,11 +26881,11 @@ ParticleSystem:
         - serializedVersion: 3
           time: 1
           value: 0
-          inSlope: -0.079201534
-          outSlope: -0.079201534
+          inSlope: -0.10215811
+          outSlope: -0.10215811
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.4549951
+          inWeight: 0.42387214
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2

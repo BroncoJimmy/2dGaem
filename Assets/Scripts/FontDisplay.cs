@@ -17,7 +17,7 @@ public class FontDisplay : MonoBehaviour
 
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         popUpDisplayer = GameObject.FindGameObjectWithTag("FontDisplayer");
         popUp = indicatorText;
@@ -30,7 +30,7 @@ public class FontDisplay : MonoBehaviour
 
     public static void instantiate(string number, Vector2 position, int col, float scale)
     {
-        
+        Debug.Log(popUp);
         GameObject indicator = Instantiate(popUp, new Vector3(position.x, position.y, 0), Quaternion.identity);
         indicator.GetComponent<Renderer>().sortingOrder = textSortingOrder;
         indicator.GetComponent<TextMesh>().text = number;

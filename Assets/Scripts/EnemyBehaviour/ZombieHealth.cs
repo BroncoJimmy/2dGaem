@@ -25,7 +25,6 @@ public class ZombieHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     public void damageTaken(int Damage)
