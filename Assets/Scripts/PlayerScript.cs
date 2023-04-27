@@ -66,11 +66,10 @@ public class PlayerScript : MonoBehaviour
     {
         Debug.Log("Player set to: " + GameObject.FindGameObjectWithTag("Player"));
         Globals.player = GameObject.FindGameObjectWithTag("Player");
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().Shake(4.0f);
     }
     void Start()
     {
-        
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().Shake(3.0f);
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
