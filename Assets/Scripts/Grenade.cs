@@ -34,6 +34,7 @@ public class Grenade : MonoBehaviour
 
     private IEnumerator Explode()
     {
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().Shake(1.0f);
         animator.SetTrigger("Explode");
         yield return new WaitForSeconds(animTime);
         Destroy(gameObject);
