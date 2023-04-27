@@ -95,7 +95,7 @@ public class BossBehaviour : MonoBehaviour
             child.transform.Rotate(new Vector3(0, 0, angleOffset));
 
             Debug.Log("Rotation: " + child.transform.rotation.eulerAngles.z);
-            projectileScript.Shoot(firePoint, Color.red, 5f);
+            projectileScript.Shoot(firePoint, Color.white, 5f);
             angleTotal += 5f;
             angleOffset += angleOffset >= 0 ? -angleTotal : angleTotal;
             //Debug.Log(firePoint.transform.rotation);

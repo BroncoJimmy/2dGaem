@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1201411642852601778, guid: f2a2d2df163234c47b9d2af2de8c83a8, type: 3}
       propertyPath: orthographic size
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2a2d2df163234c47b9d2af2de8c83a8, type: 3}
@@ -8978,6 +8978,10 @@ PrefabInstance:
       propertyPath: mainCam
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4058491945061705285, guid: 982d142720e3f314595f946a4040344f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4058491945061705300, guid: 982d142720e3f314595f946a4040344f, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -9022,9 +9026,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4058491945061705301, guid: 982d142720e3f314595f946a4040344f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 49939670, guid: 1db42ab28e6b68d418f21317e08ef4c7, type: 3}
     - target: {fileID: 4058491945061705302, guid: 982d142720e3f314595f946a4040344f, type: 3}
       propertyPath: m_Name
       value: Player 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235169652922284924, guid: 982d142720e3f314595f946a4040344f, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235169652922284924, guid: 982d142720e3f314595f946a4040344f, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 982d142720e3f314595f946a4040344f, type: 3}
@@ -9230,7 +9246,7 @@ GameObject:
   - component: {fileID: 1349926731}
   - component: {fileID: 1349926736}
   - component: {fileID: 1349926735}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: ShadowBoss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -9399,8 +9415,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.02, y: 0}
-  m_Size: {x: 0.23297665, y: 0.3481719}
+  m_Offset: {x: -0.017407164, y: -0.03629978}
+  m_Size: {x: 0.29001912, y: 0.42077145}
   m_Direction: 0
 --- !u!114 &1349926735
 MonoBehaviour:
@@ -9449,7 +9465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3789967170160880059, guid: b2eb4c750e4910448b4631038595a972, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000024795532
+      value: -0.00001335144
       objectReference: {fileID: 0}
     - target: {fileID: 4756551385728116010, guid: b2eb4c750e4910448b4631038595a972, type: 3}
       propertyPath: m_AnchorMax.x

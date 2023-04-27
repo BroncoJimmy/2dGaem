@@ -41,7 +41,7 @@ public class FireProjectile : MonoBehaviour
 
     public void Shoot(Transform newPoint, Color color, float fireDistance)
     {
-        GameObject newBullet = Instantiate(projectile, newPoint.position, newPoint.rotation);
+        GameObject newBullet = Instantiate(projectile, newPoint.position + newPoint.up * 0.2f, newPoint.rotation);
         newBullet.GetComponent<Bullet>().damageAmount = hitDamage;
         newBullet.GetComponent<SpriteRenderer>().color = color;
         newBullet.GetComponent<Bullet>().fireRange = fireDistance;

@@ -20,6 +20,8 @@ public class DashAbility : MonoBehaviour
     public Transform colliderTransform;
     PlayerScript player_script;
 
+    private Coroutine dashCoroutine;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,17 +37,17 @@ public class DashAbility : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && isDashAvailable && !isDashing)
         {
-
+            Globals.gun.SendMessage("ChangeRenderer", false);
             dashVector = new Vector2(Globals.lookDirection.x * (1 / Globals.lookDirection.magnitude), Globals.lookDirection.y * (1/Globals.lookDirection.magnitude));
 
             
-            StartCoroutine(Dash());
+            dashCoroutine = StartCoroutine(Dash());
             
             /*isDashing = true;
             isDashAvailable = false;
             TryDash(Globals.lookDirection);
             Invoke("ReloadDash", dashReloadTime);*/
-            
+
         }
        
 
@@ -77,6 +79,8 @@ public class DashAbility : MonoBehaviour
         yield return new WaitForSeconds(dashingTime);
         isDashing = false;
         tr.emitting = false;
+        yield return new WaitForSeconds(0.5f);
+        Globals.gun.SendMessage("ChangeRenderer", true);
         //Debug.Log("DISTANCE: " + (startPosition - Globals.player.transform.position).magnitude + "; DASH COUNT: " + dashCount);
 
         yield return new WaitForSeconds(dashReloadTime);
@@ -105,6 +109,7 @@ public class DashAbility : MonoBehaviour
         {
             //Debug.Log("blocked");
             isDashing = false;
+            Globals.gun.SendMessage("ChangeRenderer", true);
             return false;
 
         }

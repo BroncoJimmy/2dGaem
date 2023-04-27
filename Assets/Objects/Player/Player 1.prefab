@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 4251717742432230154}
   - component: {fileID: 5782300609736528374}
   - component: {fileID: 3878181774293504080}
+  - component: {fileID: 8235169652922284924}
   m_Layer: 3
   m_Name: Player 1
   m_TagString: Player
@@ -154,7 +155,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4058491945061705302}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -228,6 +229,7 @@ MonoBehaviour:
   currentAnimation: 
   isStatic: 0
   mainCam: {fileID: 0}
+  camShake: {fileID: 0}
   up: {x: 0, y: 0, z: 1}
   isDashAvailable: 1
   numGrenades: 0
@@ -437,3 +439,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pistolAmmo: 0
+--- !u!70 &8235169652922284924
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058491945061705302}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.03, y: -0.03}
+  m_Size: {x: 0.12, y: 0.05}
+  m_Direction: 1

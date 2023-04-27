@@ -14,6 +14,10 @@ public class DebugFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (target == null)
+        {
+            Destroy(gameObject);
+        }
         transform.position = new Vector3(target.transform.position.x + 0.01361722f, target.transform.position.y - 0.007781148f);
     }
 }

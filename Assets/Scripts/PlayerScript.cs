@@ -11,6 +11,7 @@ public class Globals
     public static float[] limitArray = new float[2];
     public static string currentPlayerAnim = "Player_IdleD";
     public static GameObject player;
+    public static GameObject gun;
     public static int PLAYER_LAYER { get { return 3; } }
     public static int ENEMY_LAYER { get { return 6; } }
     public static int FLYING_LAYER { get { return 9; } }
@@ -61,6 +62,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] bool isDashAvailable = true;
     public int numGrenades = 0;
 
+    int meleeDamage { get; set; }
 
     private void Awake()
     {
@@ -77,9 +79,16 @@ public class PlayerScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         bodyCollider = GetComponent<Collider2D>();
         numGrenades = 0x10;
+        meleeDamage = 25;
     }
 
-    
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            StartCoroutine(SwordAttack());
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -149,6 +158,17 @@ public class PlayerScript : MonoBehaviour
         movementInput = movementValue.Get<Vector2>().normalized;
     }
 
+    private IEnumerator SwordAttack()
+    {
+        Globals.gun.SendMessage("ChangeRenderer", false);
+        animator.SetBool("Attack", true);
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        animator.SetBool("Attack", false);
+        yield return new WaitForSeconds(0.5f);
+        Globals.gun.SendMessage("ChangeRenderer", true);
+    }
+
+
     private void ReloadDash()
     {
         isDashAvailable = true;
@@ -161,6 +181,15 @@ public class PlayerScript : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag.Equals("Enemy"))
+        {
+            collision.gameObject.SendMessage("damageTaken", 100);
+
+        }
     }
 
 }

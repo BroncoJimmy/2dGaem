@@ -28,6 +28,7 @@ public class GunScript : MonoBehaviour
     {
         dash_script = Globals.player.GetComponent<DashAbility>();
         ammoSystem = Globals.player.GetComponent<AmmoSystem>();
+        Globals.gun = gameObject;
     }
 
     // Start is called before the first frame update
@@ -40,14 +41,14 @@ public class GunScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dash_script.isDashing)
+        /*if (dash_script.isDashing)
         {
             renderer.enabled = false;
 
         } else if (!renderer.enabled)
         {
             renderer.enabled = true;
-        }
+        }*/
         
         transform.rotation = Globals.player.transform.rotation;
         
@@ -56,7 +57,7 @@ public class GunScript : MonoBehaviour
 
         transform.position = Globals.player.transform.position + new Vector3(xOffset, yOffset, -2);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             Shoot();
         } else if (!animator.GetBool("isStatic"))
@@ -64,7 +65,7 @@ public class GunScript : MonoBehaviour
             animator.SetBool("isStatic", true);
         }
 
-        if (Input.GetMouseButtonDown(1) && Globals.player.GetComponent<PlayerScript>().numGrenades > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && Globals.player.GetComponent<PlayerScript>().numGrenades > 0)
         {
             isThrowing = true;
             throwSpeed = 0;
@@ -91,7 +92,7 @@ public class GunScript : MonoBehaviour
 
         //Only fire when you have ammo
         
-        if (ammoSystem.pistolAmmo > 0) {
+        if (ammoSystem.pistolAmmo > 0 && renderer) {
 
         
         animator.SetTrigger("Fired");
@@ -119,5 +120,10 @@ public class GunScript : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
+    
+    public void ChangeRenderer(bool on)
+    {
+        Debug.Log("Gun set to : " + on);
+        renderer.enabled = on;
+    }
 }
