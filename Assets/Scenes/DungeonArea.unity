@@ -25440,6 +25440,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Summary
       objectReference: {fileID: 0}
+    - target: {fileID: 1559424590197638650, guid: 60a3ece0d24aaea49836a20d667d714c, type: 3}
+      propertyPath: xp
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559424590197638650, guid: 60a3ece0d24aaea49836a20d667d714c, type: 3}
+      propertyPath: kills
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559424590197638650, guid: 60a3ece0d24aaea49836a20d667d714c, type: 3}
+      propertyPath: level
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1559424590197638653, guid: 60a3ece0d24aaea49836a20d667d714c, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0

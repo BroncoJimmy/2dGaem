@@ -10,8 +10,6 @@ public class GameSummary : MonoBehaviour
     public GameObject summary;
     public static Canvas canvas;
     public int kills;
-    public int level;
-    public int damageDealt;
     public float xp;
     [SerializeField]
     private Text text;
@@ -19,6 +17,7 @@ public class GameSummary : MonoBehaviour
     private void Awake()
     {
         canvas = GetComponent<Canvas>();
+        text = GameObject.Find("SummaryText").GetComponent<Text>();
 
         if (instance != null)
         {
@@ -41,7 +40,7 @@ public class GameSummary : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
         canvas.enabled = true;
-        text.text = "LEVEL: "+level+"\nKILLS: "+kills+"\nXP: "+xp;
+        text.text = "LEVEL: "+"\nKILLS: "+kills+"\nXP: "+xp;
     }
 
     public void Restart()

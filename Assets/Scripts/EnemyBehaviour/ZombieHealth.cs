@@ -5,6 +5,7 @@ using UnityEngine;
 public class ZombieHealth : MonoBehaviour
 {
     public int dmgXP;
+    public GameSummary summary;
     [SerializeField] bool isDead = false;
 
     Animator animator;
@@ -20,6 +21,7 @@ public class ZombieHealth : MonoBehaviour
         animator = GetComponent<Animator>();
         renderer = GetComponent<SpriteRenderer>();
         defaultMaterial = renderer.material;
+        summary = GameObject.FindGameObjectWithTag("Summary").GetComponent<GameSummary>();
     }
 
     // Update is called once per frame
@@ -47,6 +49,7 @@ public class ZombieHealth : MonoBehaviour
         {
             zDeath();
             DamageXP dmgXP = Globals.player.GetComponent<DamageXP>();
+            summary.kills += 1;
             dmgXP.shootXP += 10;
             isDead = true;
         }
