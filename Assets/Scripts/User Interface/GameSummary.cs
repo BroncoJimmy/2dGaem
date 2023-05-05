@@ -13,11 +13,13 @@ public class GameSummary : MonoBehaviour
     public float xp;
     [SerializeField]
     private Text text;
+    private GameObject mainCamera;
 
     private void Awake()
     {
         canvas = GetComponent<Canvas>();
         text = GameObject.Find("SummaryText").GetComponent<Text>();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
         if (instance != null)
         {
@@ -41,6 +43,9 @@ public class GameSummary : MonoBehaviour
         canvas = GetComponent<Canvas>();
         canvas.enabled = true;
         text.text = "LEVEL: "+"\nKILLS: "+kills+"\nXP: "+xp;
+        //Debug.Log(Camera.main.transform);
+        //transform.position = Vector3.MoveTowards(transform.position, Camera.main.transform, 0f);
+
     }
 
     public void Restart()
@@ -55,10 +60,5 @@ public class GameSummary : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         Deactivate();
 
-    }
-
-    void Update()
-    {
-        
     }
 }
