@@ -243,8 +243,15 @@ public class TilemapGeneration : MonoBehaviour
         {
             if (kvp.Key.SequenceEqual<bool>(newBlueprint))
             {
-
+                // Chooses a random preset that mathces the parameters to be entered into the scene
                 int roomChoice = Random.Range(0, presetData[kvp.Key].GetLength(0));
+                if (distanceFromSpawn < 1)
+                {
+                    roomChoice = 0;
+                } else
+                {
+                    roomChoice = Random.Range(0, presetData[kvp.Key].GetLength(0));
+                }
                 //Debug.Log(roomChoice);
                 for (int i = 0; i < 2; i++)
                 {
@@ -431,6 +438,7 @@ public class TilemapGeneration : MonoBehaviour
     private void generateObstacles(TileBase[] preset, Vector3Int location)
     {
         // Creates a list of enemies to be placed in the room (max 2)
+        List<Vector2Int> waterTiles = new List<Vector2Int>();
         List<GameObject> obstacleSet = new List<GameObject>(Random.Range(0, 10));
         for (int index = 0; index < obstacleSet.Capacity; index++)
         {

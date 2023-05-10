@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         newAngle.eulerAngles = new Vector3(0, 0, transform.rotation.eulerAngles.z);
-        if (collision.gameObject.tag.Equals("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().Shake(.4f);
             GameObject effect = Instantiate(hitEffect, transform.position, newAngle);
@@ -48,15 +48,7 @@ public class Bullet : MonoBehaviour
 
 
         }
-        else if (!collision.gameObject.layer.Equals(Globals.ITEM_LAYER))
-        {
-            GameObject effect = Instantiate(hitEffect, transform.position + new Vector3(Globals.lookDirection.x * 0.1f, Globals.lookDirection.y * 0.1f, -5f), newAngle);
-            effect.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
-            Destroy(effect, 0.25f);
-            Debug.Log("Layer hit: " + collision.gameObject.layer);
-            Destroy(gameObject);
-        }
-        else if (collision.gameObject.tag.Equals("Crate"))
+        else if (collision.gameObject.CompareTag("Crate"))
         {
             Debug.Log(" siugd my peen ");
             collision.gameObject.SendMessage("damageTaken", damageAmount);
@@ -66,8 +58,17 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
 
 
+        } 
+        else if (!collision.gameObject.layer.Equals(Globals.ITEM_LAYER))
+        {
+            GameObject effect = Instantiate(hitEffect, transform.position + new Vector3(Globals.lookDirection.x * 0.1f, Globals.lookDirection.y * 0.1f, -5f), newAngle);
+            effect.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+            Destroy(effect, 0.25f);
+            Debug.Log("Layer hit: " + collision.gameObject.layer);
+            Destroy(gameObject);
         }
-        Debug.Log(collision.gameObject.tag);
+        
+        //Debug.Log(collision.gameObject.tag);
 
 
     }

@@ -12,6 +12,7 @@ public class Globals
     public static string currentPlayerAnim = "Player_IdleD";
     public static GameObject player;
     public static GameObject gun;
+    public static bool playerHoldingGun;
     public static int PLAYER_LAYER { get { return 3; } }
     public static int ENEMY_LAYER { get { return 6; } }
     public static int FLYING_LAYER { get { return 9; } }
@@ -49,6 +50,8 @@ public class PlayerScript : MonoBehaviour
     public Animator animator;
     public SpriteRenderer spriteRenderer;
 
+    [HideInInspector] public bool isAttacking;
+
     Collider2D bodyCollider;
 
     [HideInInspector] public List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
@@ -83,8 +86,9 @@ public class PlayerScript : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !isAttacking)
         {
+            isAttacking = true;
             StartCoroutine(SwordAttack());
         }
     }
@@ -163,8 +167,10 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("Attack", true);
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         animator.SetBool("Attack", false);
+
         yield return new WaitForSeconds(0.5f);
-        Globals.gun.SendMessage("ChangeRenderer", true);
+        isAttacking = false;
+        //Globals.gun.SendMessage("ChangeRenderer", true);
     }
 
 
@@ -184,9 +190,9 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag.Equals("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Crate"))
         {
-            collision.gameObject.SendMessage("damageTaken", 100);
+            collision.gameObject.SendMessage("damageTaken", meleeDamage);
 
         }
     }

@@ -43,6 +43,10 @@ public class Grenade : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.isTrigger)
+        {
+            return;
+        }
         if (collision.gameObject.tag == "Enemy" && isLive)
         {
             collision.gameObject.SendMessage("damageTaken", 100);

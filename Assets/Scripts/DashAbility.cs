@@ -80,7 +80,8 @@ public class DashAbility : MonoBehaviour
         isDashing = false;
         tr.emitting = false;
         yield return new WaitForSeconds(0.5f);
-        Globals.gun.SendMessage("ChangeRenderer", true);
+        
+        //Globals.gun.SendMessage("ChangeRenderer", true);
         //Debug.Log("DISTANCE: " + (startPosition - Globals.player.transform.position).magnitude + "; DASH COUNT: " + dashCount);
 
         yield return new WaitForSeconds(dashReloadTime);

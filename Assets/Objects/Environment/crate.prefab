@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 31cdd0bb19c2d174887105a2f5deb17c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -129,6 +129,9 @@ MonoBehaviour:
   zHealth: 20
   flashMaterial: {fileID: 2100000, guid: b2b1f5c508ee9614794c3434c5f8eaea, type: 2}
   isFlashing: 0
+  items:
+  - {fileID: 4999168760560275652, guid: ca87b6757b25729478d8cfce28cb245f, type: 3}
+  - {fileID: 5531605111993007076, guid: 5215fd06be0c7db42aa4b3322d30b4d2, type: 3}
 --- !u!95 &3292232423713123806
 Animator:
   serializedVersion: 5

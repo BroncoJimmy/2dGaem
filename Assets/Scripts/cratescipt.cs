@@ -11,6 +11,8 @@ public class cratescipt : MonoBehaviour
     public static Material defaultMaterial;
     [SerializeField] bool isFlashing;
 
+    [SerializeField] GameObject[] items;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,19 +41,17 @@ public class cratescipt : MonoBehaviour
 
         if (zHealth <= 0)
         {
-            zDeath();
+            cDeath();
         }
     }
 
-    void zDeath()
+    void cDeath()
     {
-        animator.SetTrigger("Death");
+        animator.SetTrigger("Destroyed");
         EnemyGeneration.loadedObstacles.Remove(gameObject);
-        //Debug.Log("# of enemies: " + EnemyGeneration.loadedEnemies.Count);
-        // Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton_Walk"));
-        Destroy(gameObject, 2f);
-        //Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
-        //Death animation?
+        Instantiate(items[Random.Range(0, 2)], transform.position, Quaternion.identity);
+        Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
+
     }
 
     void endFlash()

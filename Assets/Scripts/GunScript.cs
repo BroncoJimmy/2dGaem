@@ -15,6 +15,7 @@ public class GunScript : MonoBehaviour
     [SerializeField] Transform firePoint;
     [SerializeField] float fireSpeed = 20f;
     AmmoSystem ammoSystem;
+    PlayerScript playerScript;
 
     [SerializeField] public int gunDamage = 20;
 
@@ -28,6 +29,7 @@ public class GunScript : MonoBehaviour
     {
         dash_script = Globals.player.GetComponent<DashAbility>();
         ammoSystem = Globals.player.GetComponent<AmmoSystem>();
+        playerScript = Globals.player.GetComponent<PlayerScript>();
         Globals.gun = gameObject;
     }
 
@@ -41,14 +43,14 @@ public class GunScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (dash_script.isDashing)
+        if (dash_script.isDashing || playerScript.isAttacking)
         {
             renderer.enabled = false;
 
         } else if (!renderer.enabled)
         {
             renderer.enabled = true;
-        }*/
+        }
         
         transform.rotation = Globals.player.transform.rotation;
         
@@ -73,7 +75,7 @@ public class GunScript : MonoBehaviour
         
         if (isThrowing)
         {
-            if (Input.GetMouseButtonUp(1) || throwSpeed > 1)
+            if (Input.GetKeyUp(KeyCode.Space) || throwSpeed > 1)
             {
                 isThrowing = false;
                 StartCoroutine(ThrowGrenade(throwSpeed));
