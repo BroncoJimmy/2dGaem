@@ -25798,6 +25798,7 @@ MonoBehaviour:
   - {fileID: 1214571981072138708, guid: f007e49bcb31d754e990dc7dfa9133be, type: 3}
   items:
   - {fileID: 3292232423713122853, guid: 3141bb3723d3dfb4e9f2446c55eef06e, type: 3}
+  - {fileID: 1579934715928731152, guid: 4cb5424bd482f1f4d8b9e9da8feb3296, type: 3}
   obstacles:
   - {fileID: 6763939917826181270, guid: 48819e01021f62341932752347e6bc26, type: 3}
   dungeonEntrance: {fileID: 5432823595579654214, guid: bf0cf61984653a243aed17aec2aa2a89, type: 3}
@@ -30954,6 +30955,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8188922113256160386, guid: f4104a28c6d2c6c47a4c8bdce1e462b7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188922113292126477, guid: f4104a28c6d2c6c47a4c8bdce1e462b7, type: 3}
+      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

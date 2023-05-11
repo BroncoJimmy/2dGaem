@@ -165,14 +165,14 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   movementFilter:
     useTriggers: 0
-    useLayerMask: 0
+    useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0
     useNormalAngle: 0
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 513
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0

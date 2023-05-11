@@ -59,7 +59,7 @@ public class Bullet : MonoBehaviour
 
 
         } 
-        else if (!collision.gameObject.layer.Equals(Globals.ITEM_LAYER))
+        else if (!collision.gameObject.layer.Equals(Globals.ITEM_LAYER) && !collision.gameObject.layer.Equals(Globals.WATER_LAYER))
         {
             GameObject effect = Instantiate(hitEffect, transform.position + new Vector3(Globals.lookDirection.x * 0.1f, Globals.lookDirection.y * 0.1f, -5f), newAngle);
             effect.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;

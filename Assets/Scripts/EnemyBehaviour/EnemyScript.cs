@@ -11,6 +11,7 @@ public class EnemyScript : MonoBehaviour
 
     [HideInInspector] public List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     public ContactFilter2D movementFilter;
+    public ContactFilter2D sightFilter;
     public float moveSpeed = 1f;
     public float collisionOffset = 0.01f;
     private Vector3 moveVector;
@@ -157,7 +158,7 @@ public class EnemyScript : MonoBehaviour
     {
         Vector3 distance = targetLoc - transform.position;
         
-        if (collider.Raycast(targetLoc - transform.position, movementFilter, castCollisions, moveVector.magnitude) > 1)
+        if (collider.Raycast(targetLoc - transform.position, sightFilter, castCollisions, moveVector.magnitude) > 1)
         {
             return false;
         }

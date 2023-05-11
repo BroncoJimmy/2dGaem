@@ -37,8 +37,8 @@ public class TilemapGeneration : MonoBehaviour
     [SerializeField] GameObject[] items;
     [SerializeField] GameObject[] obstacles;
     [SerializeField] GameObject dungeonEntrance;
-    int roomSizeX = 17;
-    int roomSizeY = 12;
+    public static int roomSizeX = 17;
+    public static int roomSizeY = 12;
     List<int[]> checkCoords;
 
 
@@ -378,14 +378,14 @@ public class TilemapGeneration : MonoBehaviour
         }
         //Debug.Log("Generated " + set + " at " + location);
 
-        for (int row = 2; row < roomSizeY - 2; row++)
+        for (int row = 3; row < roomSizeY - 3; row++)
         {
             for (int column = 3; column < roomSizeX - 3; column++)
             {
-                if (preset[(roomSizeX * row) + column] != null && Random.Range(0, 10) == 5)
+                if (preset[(roomSizeX * row) + column] != null && !WaterBehaviour.waterTiles.Contains(new Vector2Int(location.x * roomSizeX + column, (location.y * roomSizeY + row))) && Random.Range(0, 10) == 5)
                 {
-                    Vector3 newLocation = new Vector3((location.x * roomSizeX + column) * .16f - 0.08f, (location.y * roomSizeY + row) * .16f - 0.08f);
-                    //Debug.Log(enemySet + " at " + newLocation + ", Coords (" + column + ", " + row);
+                    Vector3 newLocation = new Vector3((location.x * roomSizeX + column) * .16f + 0.08f, (location.y * roomSizeY + row) * .16f + 0.08f);
+                    //Debug.Log("Enemy generated at " + newLocation + ", Coords (" + column + ", " + row);
                     EnemyGeneration.generateEnemy(enemies[enemySet[0]-1], newLocation);
                     enemySet.RemoveAt(0);
                 }

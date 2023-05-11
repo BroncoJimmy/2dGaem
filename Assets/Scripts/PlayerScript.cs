@@ -14,9 +14,12 @@ public class Globals
     public static GameObject gun;
     public static bool playerHoldingGun;
     public static int PLAYER_LAYER { get { return 3; } }
+
+    public static int WATER_LAYER { get { return 4; } }
     public static int ENEMY_LAYER { get { return 6; } }
     public static int FLYING_LAYER { get { return 9; } }
     public static int ITEM_LAYER { get { return 8; } }
+
 
     public static System.Random random = new System.Random();
 
