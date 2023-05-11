@@ -76,13 +76,18 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.layer.Equals(Globals.PLAYER_LAYER) && !Globals.player.GetComponent<DashAbility>().isDashing)
+        if (collision.gameObject.layer.Equals(Globals.PLAYER_LAYER))
         {
-            collision.gameObject.SendMessage("damageTaken", damageAmount);
-
+            if (!Globals.player.GetComponent<DashAbility>().isDashing)
+            {
+                collision.gameObject.SendMessage("damageTaken", damageAmount);
+                GameObject effect = Instantiate(hitEffect, transform.position + transform.up * 0.1f, Quaternion.Euler(0, 0, Random.Range(0, 180)));
+                effect.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+                Destroy(effect, effect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+                Destroy(gameObject);
+            }
             
-        }
-        if (collision.gameObject.layer.Equals(Globals.FLYING_LAYER))
+        } else if (!collision.gameObject.layer.Equals(Globals.FLYING_LAYER))
         {
             GameObject effect = Instantiate(hitEffect, transform.position + transform.up * 0.1f, Quaternion.Euler(0, 0, Random.Range(0, 180)));
             effect.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
