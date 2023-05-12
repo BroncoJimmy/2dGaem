@@ -813,7 +813,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 0}
+  m_BackGroundColor: {r: 0.066037714, g: 0.066037714, b: 0.066037714, a: 0}
   m_projectionMatrixMode: 2
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1776,6 +1776,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a051318fdd98744fae502143af9f547, type: 3}
+--- !u!1 &1671127132 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4748673208366033143, guid: 63f90b01e837ebf428dffa3138caaf4c, type: 3}
+  m_PrefabInstance: {fileID: 4748673208154030268}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1671127135
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671127132}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 34e175bf4269b30479dae587a21d7b55, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &1816466600
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3491,8 +3516,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.188076, g: 0.5270302, b: 0.7264151, a: 1}
-        key1: {r: 0.7683438, g: 1, b: 0.97611797, a: 1}
+        key0: {r: 0.059105653, g: 0.276651, b: 0.4056604, a: 1}
+        key1: {r: 0.12113839, g: 0.6603774, b: 0.60553956, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -3520,8 +3545,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.48742133, b: 0.48742133, a: 1}
-        key1: {r: 1, g: 0.39215684, b: 0.88641, a: 1}
+        key0: {r: 0.5849056, g: 0.2286895, b: 0.2286895, a: 1}
+        key1: {r: 0.754717, g: 0.15268384, b: 0.64207864, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
