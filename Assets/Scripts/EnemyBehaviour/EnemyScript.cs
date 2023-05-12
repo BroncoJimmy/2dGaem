@@ -74,7 +74,7 @@ public class EnemyScript : MonoBehaviour
 
                 bool success = TryMove(moveVector);
 
-                if (!success && !canSeePlayer)
+                if (!success/* && !canSeePlayer*/)
                 {
                     Vector3 direction = alterCourse(moveVector);
 

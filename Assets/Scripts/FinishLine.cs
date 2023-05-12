@@ -7,9 +7,13 @@ public class FinishLine : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("TOUCH");
+            foreach (GameObject enemy in EnemyGeneration.loadedEnemies)
+            {
+                Destroy(enemy);
+            }
+            GameObject.FindGameObjectWithTag("Summary").SendMessage("Activate");
         }
     }
 

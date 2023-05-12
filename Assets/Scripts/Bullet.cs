@@ -87,7 +87,7 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
             }
             
-        } else if (!collision.gameObject.layer.Equals(Globals.FLYING_LAYER))
+        } else if (!collision.gameObject.layer.Equals(Globals.FLYING_LAYER) && !collision.gameObject.layer.Equals(Globals.ITEM_LAYER) && !collision.gameObject.layer.Equals(Globals.WATER_LAYER))
         {
             GameObject effect = Instantiate(hitEffect, transform.position + transform.up * 0.1f, Quaternion.Euler(0, 0, Random.Range(0, 180)));
             effect.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;

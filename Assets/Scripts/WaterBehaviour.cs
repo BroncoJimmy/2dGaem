@@ -12,15 +12,20 @@ public class WaterBehaviour : MonoBehaviour
     [SerializeField] GameObject splashEffect;
     [SerializeField] Material flashMaterial;
 
-    int[] tileLocation { get { return new int[] { (int)(transform.position.x / 0.16f), (int)(transform.position.y / 0.16f) }; } }
+    int[] tileLocation { get { return new int[] { (int)(transform.position.x / 0.16f) + isXPos, (int)(transform.position.y / 0.16f) + isYPos }; } }
+    int isXPos;
+    int isYPos;
 
     // Start is called before the first frame update
     void Start()
     {
+        isXPos = (transform.position.x < 0 ? -1 : 1);
+        isYPos = (transform.position.y < 0 ? -1 : 1);
+
         if (!waterTiles.Contains(new Vector2Int(tileLocation[0], tileLocation[1]+1)) && Random.Range(1, 101) < spreadRates[0] * 100)
         {
             waterTiles.Add(new Vector2Int(tileLocation[0], tileLocation[1] + 1));
-            GameObject newTile = Instantiate(gameObject, new Vector2(tileLocation[0] * 0.16f + 0.08f, (tileLocation[1] + 1) * 0.16f + 0.08f), Quaternion.identity);
+            GameObject newTile = Instantiate(gameObject, new Vector2(tileLocation[0] * 0.16f - 0.08f * isXPos, (tileLocation[1] + 1) * 0.16f - 0.08f * isYPos), Quaternion.identity);
             float[] newRates = new float[4];
             for (int i = 0; i < 4; i++)
             {
@@ -28,12 +33,12 @@ public class WaterBehaviour : MonoBehaviour
             }
             newTile.SendMessage("UpdateRates", newRates);
             newTile.SendMessage("AddParent", gameObject);
-            //Debug.Log("Added water up at " + newTile.transform.position + " from " + transform.position);
+            // Debug.Log("Added water up at " + newTile.transform.position + " from " + transform.position + " - " + tileLocation[0] + ", " + tileLocation[1]);
         }
         if (!waterTiles.Contains(new Vector2Int(tileLocation[0] + 1, tileLocation[1])) && Random.Range(1, 101) < spreadRates[1] * 100)
         {
             waterTiles.Add(new Vector2Int(tileLocation[0] + 1, tileLocation[1]));
-            GameObject newTile = Instantiate(gameObject, new Vector2((tileLocation[0] + 1) * 0.16f + 0.08f, (tileLocation[1]) * 0.16f + 0.08f), Quaternion.identity);
+            GameObject newTile = Instantiate(gameObject, new Vector2((tileLocation[0] + 1) * 0.16f - 0.08f * isXPos, (tileLocation[1]) * 0.16f - 0.08f * isYPos), Quaternion.identity);
             float[] newRates = new float[4];
             for (int i = 0; i < 4; i++)
             {
@@ -41,12 +46,12 @@ public class WaterBehaviour : MonoBehaviour
             }
             newTile.SendMessage("UpdateRates", newRates);
             newTile.SendMessage("AddParent", gameObject);
-            //Debug.Log("Added water right at " + newTile.transform.position + " from " + transform.position);
+            // Debug.Log("Added water right at " + newTile.transform.position + " from " + transform.position + " - " + tileLocation[0] + ", " + tileLocation[1]);
         }
         if (!waterTiles.Contains(new Vector2Int(tileLocation[0], tileLocation[1] - 1)) && Random.Range(1, 101) < spreadRates[2] * 100)
         {
             waterTiles.Add(new Vector2Int(tileLocation[0], tileLocation[1] - 1));
-            GameObject newTile = Instantiate(gameObject, new Vector2(tileLocation[0] * 0.16f + 0.08f, (tileLocation[1] - 1) * 0.16f + 0.08f), Quaternion.identity);
+            GameObject newTile = Instantiate(gameObject, new Vector2(tileLocation[0] * 0.16f - 0.08f * isXPos, (tileLocation[1] - 1) * 0.16f - 0.08f * isYPos), Quaternion.identity);
             float[] newRates = new float[4];
             for (int i = 0; i < 4; i++)
             {
@@ -54,12 +59,12 @@ public class WaterBehaviour : MonoBehaviour
             }
             newTile.SendMessage("UpdateRates", newRates);
             newTile.SendMessage("AddParent", gameObject);
-            //Debug.Log("Added water down at " + newTile.transform.position + " from " + transform.position);
+            // Debug.Log("Added water down at " + newTile.transform.position + " from " + transform.position + " - " + tileLocation[0] + ", " + tileLocation[1]);
         }
         if (!waterTiles.Contains(new Vector2Int(tileLocation[0] - 1, tileLocation[1])) && Random.Range(1, 101) < spreadRates[3] * 100)
         {
             waterTiles.Add(new Vector2Int(tileLocation[0] - 1, tileLocation[1]));
-            GameObject newTile = Instantiate(gameObject, new Vector2((tileLocation[0] - 1 ) * 0.16f + 0.08f, (tileLocation[1]) * 0.16f + 0.08f), Quaternion.identity);
+            GameObject newTile = Instantiate(gameObject, new Vector2((tileLocation[0] - 1 ) * 0.16f - 0.08f * isXPos, (tileLocation[1]) * 0.16f - 0.08f * isYPos), Quaternion.identity);
             float[] newRates = new float[4];
             for (int i = 0; i < 4; i++)
             {
@@ -67,7 +72,7 @@ public class WaterBehaviour : MonoBehaviour
             }
             newTile.SendMessage("UpdateRates", newRates);
             newTile.SendMessage("AddParent", gameObject);
-            //Debug.Log("Added water left at " + newTile.transform.position + " from " + transform.position);
+            // Debug.Log("Added water left at " + newTile.transform.position + " from " + transform.position + " - " + tileLocation[0] + ", " + tileLocation[1]);
         }
 
     }

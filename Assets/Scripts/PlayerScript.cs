@@ -193,7 +193,7 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Crate"))
+        if (!collision.isTrigger && collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Crate"))
         {
             collision.gameObject.SendMessage("damageTaken", meleeDamage);
 

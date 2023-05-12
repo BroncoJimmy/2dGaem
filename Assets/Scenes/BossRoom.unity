@@ -68811,6 +68811,10 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[2601].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 8188922113292126477, guid: f4104a28c6d2c6c47a4c8bdce1e462b7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4104a28c6d2c6c47a4c8bdce1e462b7, type: 3}
 --- !u!1001 &424370779
@@ -69017,6 +69021,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1559424590197638642, guid: 60a3ece0d24aaea49836a20d667d714c, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559424590197638654, guid: 60a3ece0d24aaea49836a20d667d714c, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1559424590197638655, guid: 60a3ece0d24aaea49836a20d667d714c, type: 3}
@@ -69328,6 +69336,9 @@ MonoBehaviour:
   zHealth: 500
   flashMaterial: {fileID: 2100000, guid: b2b1f5c508ee9614794c3434c5f8eaea, type: 2}
   isFlashing: 0
+  itemDrops:
+  - {fileID: 5599356852953228312, guid: e9b9c5462babef24fb48e27c8148afa7, type: 3}
+  dropRate: 1
 --- !u!95 &1349926732
 Animator:
   serializedVersion: 5
@@ -69432,7 +69443,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3789967170160880059, guid: b2eb4c750e4910448b4631038595a972, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000019073486
+      value: 0.000024795532
       objectReference: {fileID: 0}
     - target: {fileID: 4756551385728116010, guid: b2eb4c750e4910448b4631038595a972, type: 3}
       propertyPath: m_AnchorMax.x
