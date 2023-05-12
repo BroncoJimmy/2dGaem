@@ -118,10 +118,10 @@ public class BossBehaviour : MonoBehaviour
     public IEnumerator GreenAttack()
     {
         animator.SetBool("Green", true);
-        int amount = Random.Range(1, 4);
+        int amount = Random.Range(1, 3);
         for (int i = 0; i < amount; i++)
         {
-            Vector3 newPosition = new Vector2(Random.Range(0, 20) * .16f + 0.32f, Random.Range(1, 12) * .16f + 0.32f);
+            Vector3 newPosition = new Vector2(Random.Range(0, 18) * .16f + 0.64f, Random.Range(1, 12) * .16f + 0.32f);
             GameObject effect = Instantiate(spawnEffect, newPosition, Quaternion.Euler(0, 0, Random.Range(0, 180)));
             effect.GetComponent<SpriteRenderer>().color = new Color(0.25f, 0.65f, 0.2f);
             Destroy(effect, effect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);

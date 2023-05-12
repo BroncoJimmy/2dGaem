@@ -31,6 +31,7 @@ public class GunScript : MonoBehaviour
         ammoSystem = Globals.player.GetComponent<AmmoSystem>();
         playerScript = Globals.player.GetComponent<PlayerScript>();
         Globals.gun = gameObject;
+
     }
 
     // Start is called before the first frame update
@@ -70,6 +71,7 @@ public class GunScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Globals.player.GetComponent<PlayerScript>().numGrenades > 0)
         {
             isThrowing = true;
+            Globals.player.GetComponent<PlayerScript>().numGrenades--;
             throwSpeed = 0;
         }
         

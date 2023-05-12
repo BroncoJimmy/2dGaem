@@ -72,7 +72,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Player set to: " + GameObject.FindGameObjectWithTag("Player"));
+        //Debug.Log("Player set to: " + GameObject.FindGameObjectWithTag("Player"));
         Globals.player = GameObject.FindGameObjectWithTag("Player");
     }
     void Start()
@@ -83,8 +83,9 @@ public class PlayerScript : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         bodyCollider = GetComponent<Collider2D>();
-        numGrenades = 0x10;
+        numGrenades = 5;
         meleeDamage = 25;
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -198,6 +199,17 @@ public class PlayerScript : MonoBehaviour
             collision.gameObject.SendMessage("damageTaken", meleeDamage);
 
         }
+    }
+
+    public void TransitionScene()
+    {
+        Invoke("BossRoom", 0.1f);
+    }
+
+    private void BossRoom()
+    {
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        transform.position = new Vector3(2f, 0.9f, 0);
     }
 
 }

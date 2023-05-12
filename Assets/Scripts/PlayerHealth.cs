@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public Material flashMaterial;
     [HideInInspector] public static Material defaultMaterial;
-    public int playerHealth = 100;
+    public int playerHealth = PlayerStats.Health;
     [SerializeField] GameObject deadPlayerPrefab;
     public void damageTaken(int Damage)
     {
@@ -15,6 +15,7 @@ public class PlayerHealth : MonoBehaviour
         GameObject.FindGameObjectWithTag("Gun").GetComponent<SpriteRenderer>().material = flashMaterial;
         Invoke("endFlash", 0.5f);
         playerHealth -= Damage;
+        PlayerStats.Health = playerHealth;
 
         if (playerHealth <= 0)
         {

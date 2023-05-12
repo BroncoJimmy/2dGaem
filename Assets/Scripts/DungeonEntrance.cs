@@ -21,6 +21,7 @@ public class DungeonEntrance : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            Globals.player.SendMessage("TransitionScene");
             Debug.Log("Transition to boss scene.");
             SceneManager.LoadScene("BossRoom");
         }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8155173838808893780}
   - component: {fileID: 8155173838808893783}
   - component: {fileID: 8155173838808893782}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DeathTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
