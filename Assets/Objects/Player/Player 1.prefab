@@ -229,6 +229,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4058491945061705301}
   audioSource: {fileID: 7569138069865815394}
   walkingAudio: {fileID: 8300000, guid: aa44f010609f41e48ae676fe17781414, type: 3}
+  backgroundMusic: {fileID: 8300000, guid: f65886e2ba4b70449833531fc30cd5a6, type: 3}
   isAttacking: 0
   currentAnimation: 
   isStatic: 0
