@@ -378,14 +378,14 @@ public class TilemapGeneration : MonoBehaviour
         }
         //Debug.Log("Generated " + set + " at " + location);
 
-        for (int row = 3; row < roomSizeY - 3; row++)
+        for (int row = 3; row < roomSizeY - 4; row++)
         {
-            for (int column = 3; column < roomSizeX - 3; column++)
+            for (int column = 3; column < roomSizeX - 4; column++)
             {
                 if (preset[(roomSizeX * row) + column] != null && !WaterBehaviour.waterTiles.Contains(new Vector2Int(location.x * roomSizeX + column, (location.y * roomSizeY + row))) && Random.Range(0, 10) == 5)
                 {
                     Vector3 newLocation = new Vector3((location.x * roomSizeX + column) * .16f + 0.08f, (location.y * roomSizeY + row) * .16f + 0.08f);
-                    //Debug.Log("Enemy generated at " + newLocation + ", Coords (" + column + ", " + row);
+                    Debug.Log("Enemy generated at " + newLocation + ", Room (" + location + "Coords (" + column + ", " + row);
                     EnemyGeneration.generateEnemy(enemies[enemySet[0]-1], newLocation);
                     enemySet.RemoveAt(0);
                 }
@@ -514,7 +514,7 @@ public class TilemapGeneration : MonoBehaviour
 
         foreach (var kvp in roomData)
         {
-            if ((new Vector3((int)((playerLoc.x - 1.36f) / (roomSizeX * .16f)), (int)((playerLoc.y - 0.96f) / (roomSizeY * .16f))) - new Vector3(kvp.Value.location[0], kvp.Value.location[1])).magnitude > 2 && kvp.Value.isLoaded)
+            if ((new Vector3((int)((playerLoc.x - 1.36f) / (roomSizeX * .16f)), (int)((playerLoc.y - 0.96f) / (roomSizeY * .16f))) - new Vector3(kvp.Value.location[0], kvp.Value.location[1])).magnitude > 2.5f && kvp.Value.isLoaded)
             {
                 //Debug.Log("Room deleted");
                 for (int row = 0; row < 12; row++)

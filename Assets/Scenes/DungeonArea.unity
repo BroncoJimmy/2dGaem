@@ -169,6 +169,11 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!1 &221541658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2183154077374433209, guid: 6928178b0b793b347a1bddf689f14562, type: 3}
+  m_PrefabInstance: {fileID: 1030306091}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &249405485
 GameObject:
   m_ObjectHideFlags: 0
@@ -25748,6 +25753,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1310388516538739111, guid: 6928178b0b793b347a1bddf689f14562, type: 3}
+      propertyPath: xpDisplay
+      value: 
+      objectReference: {fileID: 221541658}
+    - target: {fileID: 2183154077624745892, guid: 6928178b0b793b347a1bddf689f14562, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183154077624745892, guid: 6928178b0b793b347a1bddf689f14562, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183154077624745892, guid: 6928178b0b793b347a1bddf689f14562, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183154078315988254, guid: 6928178b0b793b347a1bddf689f14562, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183154078315988254, guid: 6928178b0b793b347a1bddf689f14562, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183154078315988254, guid: 6928178b0b793b347a1bddf689f14562, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183154078487590003, guid: 6928178b0b793b347a1bddf689f14562, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183154078487590003, guid: 6928178b0b793b347a1bddf689f14562, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183154078487590003, guid: 6928178b0b793b347a1bddf689f14562, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 21
+      objectReference: {fileID: 0}
     - target: {fileID: 2183154079186324369, guid: 6928178b0b793b347a1bddf689f14562, type: 3}
       propertyPath: m_Name
       value: UI  Display
