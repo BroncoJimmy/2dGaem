@@ -52,6 +52,9 @@ public class PlayerScript : MonoBehaviour
     public Rigidbody2D rb;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip walkingAudio;
+    float walkCountdown = 0;
 
     [HideInInspector] public bool isAttacking;
 
@@ -95,6 +98,7 @@ public class PlayerScript : MonoBehaviour
             isAttacking = true;
             StartCoroutine(SwordAttack());
         }
+        walkCountdown -= Time.deltaTime;
     }
 
     private void FixedUpdate()
@@ -124,6 +128,11 @@ public class PlayerScript : MonoBehaviour
                 }
             }*/
             animator.SetBool("isWalking", true);
+            if (walkCountdown <= 0)
+            {
+                walkCountdown = 0.375f;
+                audioSource.PlayOneShot(walkingAudio);
+            }
         }
 
 
