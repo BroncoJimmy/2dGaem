@@ -18,6 +18,8 @@ public class GunScript : MonoBehaviour
     PlayerScript playerScript;
 
     [SerializeField] public int gunDamage = 20;
+    [SerializeField] AudioClip gunSound;
+    [SerializeField] AudioSource audioSource;
 
     [SerializeField] GameObject grenade;
     [SerializeField] bool isThrowing;
@@ -100,6 +102,7 @@ public class GunScript : MonoBehaviour
 
         
         animator.SetTrigger("Fired");
+            audioSource.PlayOneShot(gunSound);
         GameObject effect = Instantiate(shootEffect, firePoint.position, Quaternion.Euler(0,0, firePoint.eulerAngles.z + 180f));
         Destroy(effect, 0.1f);
         GameObject newBullet = Instantiate(bullet, firePoint.position, firePoint.rotation);
