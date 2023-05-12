@@ -14,6 +14,8 @@ public class ZombieHealth : MonoBehaviour
     public Material flashMaterial;
     public static Material defaultMaterial;
     [SerializeField] bool isFlashing;
+    [SerializeField] GameObject[] itemDrops;
+    [SerializeField] float dropRate = 0.1f;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,7 @@ public class ZombieHealth : MonoBehaviour
         renderer = GetComponent<SpriteRenderer>();
         defaultMaterial = renderer.material;
         summary = GameObject.FindGameObjectWithTag("Summary").GetComponent<GameSummary>();
+        
     }
 
     // Update is called once per frame
@@ -61,6 +64,10 @@ public class ZombieHealth : MonoBehaviour
         EnemyGeneration.loadedEnemies.Remove(gameObject);
         //Debug.Log("# of enemies: " + EnemyGeneration.loadedEnemies.Count);
         // Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Skeleton_Walk"));
+        if (Random.Range(1, 101) < dropRate * 100)
+        {
+            Instantiate(itemDrops[0], transform.position, Quaternion.identity);
+        }
         Destroy(gameObject, 2f);
         //Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
         //Death animation?

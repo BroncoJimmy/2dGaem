@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1573872223474695849, guid: 84834e84604e4ec4bb47814b6b6470fc, type: 3}
       propertyPath: m_Name
-      value: Hit Effect
+      value: Hit Effect Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5618577413560580099, guid: 84834e84604e4ec4bb47814b6b6470fc, type: 3}
       propertyPath: m_Sprite

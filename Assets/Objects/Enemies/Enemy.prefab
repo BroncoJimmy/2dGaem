@@ -120,6 +120,20 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  sightFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 1
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
   moveSpeed: 0.4
   collisionOffset: 0.01
   trackDistance: 2
@@ -208,6 +222,8 @@ MonoBehaviour:
   zHealth: 50
   flashMaterial: {fileID: 2100000, guid: b2b1f5c508ee9614794c3434c5f8eaea, type: 2}
   isFlashing: 0
+  itemDrops:
+  - {fileID: 2622917849522574106, guid: 786e33e60a058bc45ba57443cc5bb9eb, type: 3}
 --- !u!70 &3771816114807389946
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

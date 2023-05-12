@@ -11,6 +11,7 @@ public class EnemyScript : MonoBehaviour
 
     [HideInInspector] public List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     public ContactFilter2D movementFilter;
+    public ContactFilter2D sightFilter;
     public float moveSpeed = 1f;
     public float collisionOffset = 0.01f;
     private Vector3 moveVector;
@@ -60,7 +61,15 @@ public class EnemyScript : MonoBehaviour
         disMagnitude = moveVector.magnitude;
         movingMagnitude = disMagnitude;
 
-        Debug.DrawRay(transform.position, newPos - transform.position, Color.green);
+        if (canSeePlayer) 
+        {
+            Debug.DrawRay(transform.position, newPos - transform.position, Color.green);
+        } 
+        else 
+        { 
+            Debug.DrawRay(transform.position, /*Globals.player.transform.position*/ newPos - transform.position, Color.red); 
+        }
+            
 
         pointAngle = Mathf.Atan2(moveVector.y, moveVector.x) * Mathf.Rad2Deg - 90f;
 
@@ -73,7 +82,7 @@ public class EnemyScript : MonoBehaviour
 
                 bool success = TryMove(moveVector);
 
-                if (!success && !canSeePlayer)
+                if (!success/* && !canSeePlayer*/)
                 {
                     Vector3 direction = alterCourse(moveVector);
 
@@ -157,7 +166,7 @@ public class EnemyScript : MonoBehaviour
     {
         Vector3 distance = targetLoc - transform.position;
         
-        if (collider.Raycast(targetLoc - transform.position, movementFilter, castCollisions, moveVector.magnitude) > 1)
+        if (collider.Raycast(targetLoc - transform.position, sightFilter, castCollisions, moveVector.magnitude) >= 1)
         {
             return false;
         }
@@ -172,7 +181,7 @@ public class EnemyScript : MonoBehaviour
         {
             Debug.Log("X: " + castCollisions[0].collider.bounds.center.x + ", Y: " + castCollisions[0].collider.bounds.center.y);
         }*/
-        Debug.DrawRay(transform.position, Globals.player.transform.position - transform.position, Color.red);
+        
         if (count == 0)
         {
             // Movement is trimmed so the vector magnitude is always equal to moveSpeed

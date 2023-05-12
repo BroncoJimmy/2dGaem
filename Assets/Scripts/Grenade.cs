@@ -8,6 +8,7 @@ public class Grenade : MonoBehaviour
     [SerializeField] float tickTime;
     [SerializeField] float animTime;
     public bool isLive = false;
+    bool isExploding = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,14 +29,17 @@ public class Grenade : MonoBehaviour
     {
         yield return new WaitForSeconds(tickTime);
         animator.SetTrigger("Flash");
-        yield return new WaitForSeconds(1f);
+        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         StartCoroutine(Explode());
     }
 
     private IEnumerator Explode()
     {
+        GetComponent<CapsuleCollider2D>().enabled = false;
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().Shake(1.0f);
         animator.SetTrigger("Explode");
+        //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(animTime);
         Destroy(gameObject);
 
@@ -47,7 +51,7 @@ public class Grenade : MonoBehaviour
         {
             return;
         }
-        if (collision.gameObject.tag == "Enemy" && isLive)
+        if ((collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Crate") && isLive)
         {
             collision.gameObject.SendMessage("damageTaken", 100);
         }
@@ -63,5 +67,6 @@ public class Grenade : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         StartCoroutine(Explode());
+
     }
 }

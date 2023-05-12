@@ -10,15 +10,17 @@ public class BossBehaviour : MonoBehaviour
     public SpriteRenderer spriteRenderer;
 
     // Center, TR, BR, BL, TL
-    Vector3[] positions = new Vector3[5] { new Vector3(0, -0.06f, 0), new Vector3(1.444f, 0.178f, 0), new Vector3(1.444f, -1.7f, 0), new Vector3(-1.5f, -1.7f, 0), new Vector3(-1.5f, 0.178f, 0) };
+    Vector3[] positions = new Vector3[5] { new Vector3(2.12f, 2.12f, 0), new Vector3(3.72f, 2.52f, 0), new Vector3(0.62f, 2.52f, 0), new Vector3(0.62f, 0.49f, 0), new Vector3(3.72f, 0.49f, 0) };
 
     FireProjectile projectileScript;
     EnemyGeneration enemyGeneration;
 
     [SerializeField] GameObject[] enemies;
+    [SerializeField] GameObject spawnEffect;
     [SerializeField] GameObject child;
     [SerializeField] Transform firePoint;
     [SerializeField] List<Transform> firePoints = new List<Transform>();
+    [SerializeField] GameObject deathTile;
     private Vector3 lookVector;
     private float pointAngle;
 
@@ -67,6 +69,7 @@ public class BossBehaviour : MonoBehaviour
         } else if (randomAttack == 1)
         {
             StartCoroutine(RedAttack(11));
+            StartCoroutine(RedAttack(11));
         } else if (randomAttack == 2)
         {
             StartCoroutine(GreenAttack());
@@ -76,29 +79,38 @@ public class BossBehaviour : MonoBehaviour
     public IEnumerator BlueAttack()
     {
         animator.SetBool("Blue", true);
-        yield return new WaitForSeconds(1.5f);
+        for (int i = 0; i < 10; i++)
+        {
+            Vector2 playerPos = new Vector2((int) (Globals.player.transform.position.x / .32f), (int)(Globals.player.transform.position.y / .32f));
+            Instantiate(deathTile, new Vector2(playerPos.x * .32f + 0.16f, playerPos.y * .32f + 0.16f), Quaternion.identity);
+            yield return new WaitForSeconds(0.5f);
+        }
+        
         animator.SetBool("Blue", false);
     }
 
     public IEnumerator RedAttack(int sprayCount)
     {
         animator.SetBool("Red", true);
-        
-        yield return new WaitForSeconds(1.5f);
-        lookVector = Globals.player.transform.position - transform.position;
-        pointAngle = Mathf.Atan2(lookVector.y, lookVector.x) * Mathf.Rad2Deg - 90f;
-        child.transform.eulerAngles = (new Vector3(0, 0, pointAngle));
-        float angleOffset = 0;
-        float angleTotal = 0;
-        for (int i = 0; i < sprayCount; i++)
+        for (int i = 0; i < 2; i++)
         {
-            child.transform.Rotate(new Vector3(0, 0, angleOffset));
+            yield return new WaitForSeconds(1f);
+            lookVector = Globals.player.transform.position - transform.position;
+            pointAngle = Mathf.Atan2(lookVector.y, lookVector.x) * Mathf.Rad2Deg - 90f;
+            child.transform.eulerAngles = (new Vector3(0, 0, pointAngle));
+            float angleOffset = 0;
+            float angleTotal = 0;
+            for (int j = 0; j < sprayCount; j++)
+            {
+                child.transform.Rotate(new Vector3(0, 0, angleOffset));
 
-            Debug.Log("Rotation: " + child.transform.rotation.eulerAngles.z);
-            projectileScript.Shoot(firePoint, Color.white, 5f);
-            angleTotal += 5f;
-            angleOffset += angleOffset >= 0 ? -angleTotal : angleTotal;
-            //Debug.Log(firePoint.transform.rotation);
+                Debug.Log("Rotation: " + child.transform.rotation.eulerAngles.z);
+                projectileScript.Shoot(firePoint, Color.white, 5f);
+                angleTotal += 5f;
+                angleOffset += angleOffset >= 0 ? -angleTotal : angleTotal;
+                //Debug.Log(firePoint.transform.rotation);
+            }
+            yield return new WaitForSeconds(0.5f);
         }
         animator.SetBool("Red", false);
     }
@@ -106,10 +118,14 @@ public class BossBehaviour : MonoBehaviour
     public IEnumerator GreenAttack()
     {
         animator.SetBool("Green", true);
-        int amount = Random.Range(1, 4);
+        int amount = Random.Range(1, 3);
         for (int i = 0; i < amount; i++)
         {
-            Vector3 newPosition = new Vector2(Random.Range(0, 20) * .16f - 1.6f, Random.Range(0, 20) * .16f - 1.6f);
+            Vector3 newPosition = new Vector2(Random.Range(0, 18) * .16f + 0.64f, Random.Range(1, 12) * .16f + 0.32f);
+            GameObject effect = Instantiate(spawnEffect, newPosition, Quaternion.Euler(0, 0, Random.Range(0, 180)));
+            effect.GetComponent<SpriteRenderer>().color = new Color(0.25f, 0.65f, 0.2f);
+            Destroy(effect, effect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+            yield return new WaitForSeconds(0.2f);
             EnemyGeneration.generateEnemy(enemies[Random.Range(0,3)], newPosition);
         }
         yield return new WaitForSeconds(1.5f);

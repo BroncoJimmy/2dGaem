@@ -20,7 +20,7 @@ public class Trap : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == Globals.ENEMY_LAYER || (collision.gameObject.layer == Globals.PLAYER_LAYER))
+        if (collision.gameObject.layer == Globals.ENEMY_LAYER || (collision.gameObject.layer == Globals.PLAYER_LAYER && !collision.isTrigger))
         {
             animator.SetTrigger("Activate");
             if (collision.gameObject.tag.Equals("Enemy") || !collision.gameObject.GetComponent<DashAbility>().isDashing)
