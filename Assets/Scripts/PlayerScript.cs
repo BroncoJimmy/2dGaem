@@ -54,6 +54,7 @@ public class PlayerScript : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip walkingAudio;
+    [SerializeField] AudioClip backgroundMusic;
     float walkCountdown = 0;
 
     [HideInInspector] public bool isAttacking;
@@ -89,6 +90,7 @@ public class PlayerScript : MonoBehaviour
         numGrenades = 5;
         meleeDamage = 25;
         DontDestroyOnLoad(gameObject);
+        PlayBackgroundMusic();
     }
 
     private void Update()
@@ -219,6 +221,12 @@ public class PlayerScript : MonoBehaviour
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         transform.position = new Vector3(2f, 0.9f, 0);
+    }
+
+    public void PlayBackgroundMusic()
+    {
+        audioSource.PlayOneShot(backgroundMusic, 0.25f);
+        Invoke("PlayBackgroundMusic", 226);
     }
 
 }
